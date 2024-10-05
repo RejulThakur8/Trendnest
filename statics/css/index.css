@@ -1,0 +1,47 @@
+.top-brand{
+    background-color: #bdead9;
+}
+
+.nav-item{
+    margin-left: 25px;
+}
+
+.search{
+    width: 500px;
+}
+
+.hr-lines{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    column-gap: 1.6rem;
+    width: 87%;
+}
+
+.hr-lines::before,.hr-lines::after{
+    content:" ";
+    display: block;
+    height: 1px;
+    /* width: 30%;
+    position: absolute; */
+    background-color: black;
+}
+.hr-lines1 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    column-gap: 1.6rem;
+    width: 85%;
+}
+
+
+.hr-lines1::before,.hr-lines1::after{
+    content:"";
+    display: block;
+    height: 1px;
+    background-color: black;
+}
+
+.signin{
+    cursor: pointer;
+}

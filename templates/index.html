@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block start %}
+
+{% load static %}
+
+<!-- Carousel -->
+<div id="carouselExampleFade" class="carousel slide carousel-fade w-90 m-2">
+  <div class="carousel-inner">
+    {% for b in banner %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <img src="{% static 'image/' %}{{b.banner}}" class="d-block w-100 rounded" alt="error">
+    </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon bg-black rounded-circle" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon bg-black rounded-circle" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- Top Brands -->
+<div class="container my-4 bg-secondary-subtle">
+  <h2 class="fs-4 text-center">TOP BRANDS</h2>
+  <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-4">
+    {% for hcrd in hcard %}
+    <div class="col top-brand-card p-2">
+      <div class="card top-brand h-100 w-100">
+        <img src="{% static 'image/' %}{{hcrd.men_ban}}" class="img-thumbnail w-100" alt="...">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Trends -->
+<div class="container my-4 bg-body-secondary">
+  <h2 class="fs-4 text-center">TRENDS</h2>
+  <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-4">
+    {% for scard in smallcard %}
+    <div class="col p-2">
+      <div class="card w-100">
+        <img src="{% static 'image/' %}{{scard.s_card}}" class="img-thumbnail w-100" alt="...">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Women Banner -->
+{% for wbnr in wmnbnr %}
+<div class="container-fluid mt-4">
+  <img src="{% static 'image/' %}{{wbnr.women_banner}}" class="img-fluid w-100" alt="...">
+</div>
+{% endfor %}
+
+<!-- Women Cards -->
+<div class="container my-4">
+  <h2 class="fs-6 text-center">Biggest Deals On Top Brands</h2>
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for wcard in womencard %}
+    <div class="col">
+      <div class="card">
+        <img src="{% static 'image/' %}{{wcard.wcard_image}}" class="card-img-top" alt="Image Not Found">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Most-Loved Brands -->
+<div class="container my-4">
+  <h2 class="fs-6 text-center">MOST-LOVED BRANDS</h2>
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for wcard2 in womencard2 %}
+    <div class="col">
+      <div class="card">
+        <img src="{% static 'image/' %}{{wcard2.wcard2_image}}" class="card-img-top" alt="Image Not Found">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Kids Banner -->
+{% for kidbnr in kidsbanner %}
+<div class="container-fluid mt-4">
+  <img src="{% static 'image/' %}{{kidbnr.kidsbnr_image}}" class="img-fluid w-100" alt="Image Not Found">
+</div>
+{% endfor %}
+
+<!-- Kids Cards -->
+<div class="container my-4">
+  <h2 class="fs-6 text-center">STAR BRANDS</h2>
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for kidcard in kidscard %}
+    <div class="col">
+      <div class="card">
+        <img src="{% static 'image/' %}{{kidcard.kidscard_image}}" class="card-img-top" alt="Image Not Found">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Shoes Carousel -->
+<div id="carouselExampleIndicators" class="carousel slide mt-5 bg-red rounded">
+  <div class="carousel-indicators">
+    {% for s in shoes %}
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
+    {% endfor %}
+  </div>
+  <div class="carousel-inner">
+    {% for s in shoes %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <img src="{% static 'image/' %}{{s.shoes_banner}}" class="d-block w-100" alt="Images Not Found">
+    </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<script src="{% static 'js/index.js' %}"></script>
+
+{% endblock %}

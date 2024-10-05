@@ -1,0 +1,68 @@
+/* .list-group{
+    width: 150px;
+}
+.btn{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 124px;
+}*/
+
+.wish{
+    position: absolute;
+    top: 2%;
+    display: flex;
+    right: 25px;
+    font-size: xx-large;
+    cursor: pointer;
+}
+/*.containers{
+    width: 1500px;
+}
+.cart-text{
+    font-size: 2px;
+}
+
+.side-nav{
+    height: 100%;
+    position: sticky;
+    top: 17.5%;
+    width: 190px;
+}*/
+.cats{
+    width: 190px;
+}
+
+.card{
+    transition: all 0.5s;
+}
+
+.card:hover{
+    transform: scale(1.10);
+}
+
+.cards{
+    width: 1280px;
+}
+.list-group-item{
+    font-size: x-large;
+}
+.images{
+    width: 65%;
+}
+.images img{
+    margin-top: 5px;
+    margin-right: 2px;
+}
+
+.quantity span{
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.quantities span.num{
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    pointer-events: none;
+}

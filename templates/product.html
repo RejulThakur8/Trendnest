@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block start %}
+{% load static %}
+
+<div class="container-fluid ps-0 pe-0">
+    <div class="head">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb shadow ps-5 p-3 mt-1 mb-1 bg-body-tertiary">
+                <li class="breadcrumb-item active" aria-current="page">Home</li>
+            </ol>
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Sidebar: Brands and Categories -->
+                    <div class="cats col-12 col-md-4 col-lg-3"> 
+                        <section class="side-nav border rounded-2 mt-3" style="width:185px">
+                            <div class="accordion" id="sideNavAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingCategories">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCategories" aria-expanded="true" aria-controls="collapseCategories">
+                                            Categories
+                                        </button>
+                                    </h2>
+                                    <div id="collapseCategories" class="accordion-collapse collapse show" aria-labelledby="headingCategories" data-bs-parent="#sideNavAccordion">
+                                        <div class="accordion-body">
+                                            {% for i in categories %}
+                                            <form method="post" action="/products/" class="d-flex">
+                                                {% csrf_token %}
+                                                <ul class="list-group">
+                                                    <li class="list-group-item border-0">
+                                                        <input type="hidden" value="{{i.category2_name}}" name="category2">
+                                                        <input type="submit" value="{{i.category2_name}}" name="category2" class="form-check-label fs-5 border-0 bg-white">
+                                                    </li>
+                                                </ul>
+                                            </form>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingBrands">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBrands" aria-expanded="false" aria-controls="collapseBrands">
+                                            Brands
+                                        </button>
+                                    </h2>
+                                    <div id="collapseBrands" class="accordion-collapse collapse" aria-labelledby="headingBrands" data-bs-parent="#sideNavAccordion">
+                                        <div class="accordion-body ps-0">
+                                            {% for i in brands %}
+                                            <form method="post" action="/products/" class="d-flex">
+                                                {% csrf_token %}
+                                                <ul class="list-group">
+                                                    <li class="list-group-item border-0">
+                                                        <input type="hidden" value="{{i.brand_name}}" name="brand" class="form-check-label">
+                                                        <input type="submit" value="{{i.brand_name}}" name="brand" class="form-check-label fs-5 border-0 bg-white">
+                                                    </li>
+                                                </ul>
+                                            </form>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Products grid -->
+                    <div class="container mx-1 col-12 col-md-8 col-lg-9">
+                        <div class="container-fluid cards p-3 mt-3 ms-3 me-2 rounded bg-secondary-subtle">
+                            <div class="row m-0">
+                                {% for i in data %}
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch mb-3">
+                                    <form method="post" action="/productd/">
+                                        {% csrf_token %}
+                                        <div class="card m-2" style="width: 100%;">
+                                            <img src="{% static 'image/' %}{{i.image}}" class="img-fluid mt-2 ms-2 me-2" alt="{{i.title}}" style="height: 305px; object-fit: cover;">
+                                            
+                                            <!-- Heart icon -->
+                                            <a href="#" class="wish position-absolute heart-toggle" style="z-index: 1; top:3% right: 25px;">
+                                                <i class="bi bi-suit-heart bg-transparent text-white p-0 heart-icon" id="btns"></i>
+                                            </a>
+                    
+                                            <div class="card-body d-flex flex-column justify-content-between ps-2 pt-1 pe-2 pb-2">
+                                                <div>
+                                                    <h5 class="card-title">{{i.brand_name}}</h5>
+                                                    <p class="card-text">{{i.title}}</p>
+                                                </div>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item border-0 ps-0 pt-1 pb-1">₹{{i.price}}</li>
+                                                    <li class="list-group-item border-0 ps-0 pt-0 pe-0">{{i.rating}}</li>
+                                                </ul>
+                                                <div class="card-body p-0 mt-0 d-flex justify-content-between">
+                                                    <a id="buy" href="/i/{{i.title}}/{{i.id}}" class="btn btn-primary flex-grow-1 me-1">Buy Now</a>
+                                                    {% comment %} <input type="submit" value="Add to Cart" class="btn btn-secondary flex-grow-1"> {% endcomment %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<script src="{% static 'js/product.js' %}"></script>
+{% endblock %}
