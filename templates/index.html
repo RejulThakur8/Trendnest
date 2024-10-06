@@ -61,11 +61,11 @@
 <!-- Women Cards -->
 <div class="container my-4">
   <h2 class="fs-6 text-center">Biggest Deals On Top Brands</h2>
-  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+  <div class="row row-cols-3 row-cols-md-4 row-cols-lg-6 g-4">
     {% for wcard in womencard %}
-    <div class="col">
-      <div class="card">
-        <img src="{% static 'image/' %}{{wcard.wcard_image}}" class="card-img-top" alt="Image Not Found">
+    <div class="col p-2">
+      <div class="card w-100">
+        <img src="{% static 'image/' %}{{wcard.wcard_image}}" class="img-thumbnail w-100" alt="Image Not Found">
       </div>
     </div>
     {% endfor %}
@@ -73,7 +73,7 @@
 </div>
 
 <!-- Most-Loved Brands -->
-<div class="container my-4">
+{% comment %} <div class="container my-4">
   <h2 class="fs-6 text-center">MOST-LOVED BRANDS</h2>
   <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
     {% for wcard2 in womencard2 %}
@@ -84,28 +84,15 @@
     </div>
     {% endfor %}
   </div>
-</div>
+</div> {% endcomment %}
 
 <!-- Kids Banner -->
-{% for kidbnr in kidsbanner %}
+{% comment %} {% for kidbnr in kidsbanner %}
 <div class="container-fluid mt-4">
   <img src="{% static 'image/' %}{{kidbnr.kidsbnr_image}}" class="img-fluid w-100" alt="Image Not Found">
 </div>
-{% endfor %}
+{% endfor %} {% endcomment %}
 
-<!-- Kids Cards -->
-<div class="container my-4">
-  <h2 class="fs-6 text-center">STAR BRANDS</h2>
-  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-    {% for kidcard in kidscard %}
-    <div class="col">
-      <div class="card">
-        <img src="{% static 'image/' %}{{kidcard.kidscard_image}}" class="card-img-top" alt="Image Not Found">
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
 
 <!-- Shoes Carousel -->
 <div id="carouselExampleIndicators" class="carousel slide mt-5 bg-red rounded">
@@ -129,6 +116,20 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+</div>
+
+<!-- Shoes Cards -->
+<div class="container my-4">
+  <h2 class="fs-6 text-center">STAR BRANDS</h2>
+  <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-4">
+    {% for wcard2 in womencard2 %}
+    <div class="col p-2">
+      <div class="card w-100">
+        <img src="{% static 'image/' %}{{wcard2.wcard2_image}}" class="img-thumbnail w-100" alt="Image Not Found">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
 <script src="{% static 'js/index.js' %}"></script>

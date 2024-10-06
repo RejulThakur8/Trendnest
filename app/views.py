@@ -90,9 +90,9 @@ def home(request):
         wcrd.wcard_image=os.path.basename(wcrd.wcard_image.url)
     for wcrd2 in womencard2:
         wcrd2.wcard2_image=os.path.basename(wcrd2.wcard2_image.url)
-  
     for s in shoess:
         s.shoes_banner=os.path.basename(s.shoes_banner.url)
+        
     return render(request,'index.html',{'logo':logo1,'banner':bnr,'hcard':homecard,'smallcard':smcard,'wmnbnr':womenbnr,'womencard':womencard,'womencard2':womencard2,'shoes':shoess,'category':category1,'categories':categories[:2]})
 
 

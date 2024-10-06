@@ -13,7 +13,7 @@
                 <div class="row">
                     <!-- Sidebar: Brands and Categories -->
                     <div class="cats col-12 col-md-4 col-lg-3"> 
-                        <section class="side-nav border rounded-2 mt-3" style="width:185px">
+                        <section class="side-nav border rounded-2 mt-3" style="width:158px">
                             <div class="accordion" id="sideNavAccordion">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingCategories">
@@ -22,14 +22,14 @@
                                         </button>
                                     </h2>
                                     <div id="collapseCategories" class="accordion-collapse collapse show" aria-labelledby="headingCategories" data-bs-parent="#sideNavAccordion">
-                                        <div class="accordion-body">
+                                        <div class="accordion-body p-1">
                                             {% for i in categories %}
                                             <form method="post" action="/products/" class="d-flex">
                                                 {% csrf_token %}
                                                 <ul class="list-group">
-                                                    <li class="list-group-item border-0">
+                                                    <li class="list-group-item ps-2 p-0 border-0">
                                                         <input type="hidden" value="{{i.category2_name}}" name="category2">
-                                                        <input type="submit" value="{{i.category2_name}}" name="category2" class="form-check-label fs-5 border-0 bg-white">
+                                                        <input type="submit" value="{{i.category2_name}}" name="category2" class="form-check-label fs-6 border-0 bg-white">
                                                     </li>
                                                 </ul>
                                             </form>
@@ -45,14 +45,14 @@
                                         </button>
                                     </h2>
                                     <div id="collapseBrands" class="accordion-collapse collapse" aria-labelledby="headingBrands" data-bs-parent="#sideNavAccordion">
-                                        <div class="accordion-body ps-0">
+                                        <div class="accordion-body p-1">
                                             {% for i in brands %}
                                             <form method="post" action="/products/" class="d-flex">
                                                 {% csrf_token %}
                                                 <ul class="list-group">
-                                                    <li class="list-group-item border-0">
+                                                    <li class="list-group-item ps-2 p-0 border-0">
                                                         <input type="hidden" value="{{i.brand_name}}" name="brand" class="form-check-label">
-                                                        <input type="submit" value="{{i.brand_name}}" name="brand" class="form-check-label fs-5 border-0 bg-white">
+                                                        <input type="submit" value="{{i.brand_name}}" name="brand" class="form-check-label fs-6 border-0 bg-white">
                                                     </li>
                                                 </ul>
                                             </form>
@@ -86,10 +86,10 @@
                                                     <p class="card-text">{{i.title}}</p>
                                                 </div>
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item border-0 ps-0 pt-1 pb-1">₹{{i.price}}</li>
-                                                    <li class="list-group-item border-0 ps-0 pt-0 pe-0">{{i.rating}}</li>
+                                                    <li class="list-group-item border-0 ps-0 pt-1 pb-1 fs-5">₹{{i.price}}</li>
+                                                    <li class="list-group-item border-0 ps-0 pt-0 pe-0 fs-5">{{i.rating}}</li>
                                                 </ul>
-                                                <div class="card-body p-0 mt-0 d-flex justify-content-between">
+                                                <div class="card-body p-0 pt-2 mt-0 d-flex justify-content-between">
                                                     <a id="buy" href="/i/{{i.title}}/{{i.id}}" class="btn btn-primary flex-grow-1 me-1">Buy Now</a>
                                                     {% comment %} <input type="submit" value="Add to Cart" class="btn btn-secondary flex-grow-1"> {% endcomment %}
                                                 </div>
