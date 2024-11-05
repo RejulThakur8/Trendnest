@@ -109,3 +109,13 @@ class card(models.Model):
     image6 = models.ImageField(upload_to='statics/image')
     def __str__(self):
         return self.title
+    
+class cart2(models.Model):
+    pass
+    
+
+class addtocrt(models.Model):
+    Card = models.ForeignKey(card, on_delete=models.CASCADE)
+    quality = models.PositiveIntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
