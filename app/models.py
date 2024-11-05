@@ -116,6 +116,9 @@ class cart2(models.Model):
 
 class addtocrt(models.Model):
     Card = models.ForeignKey(card, on_delete=models.CASCADE)
+    image = models.ImageField()
     quality = models.PositiveIntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now_add=True)
+    price = models.IntegerField(default=0)
+

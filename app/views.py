@@ -127,3 +127,7 @@ def product_det(request,iid,ititle):
         i.image4=os.path.basename(i.image4.url)
         i.image5=os.path.basename(i.image5.url)
     return render(request,'product_detail.html',{'data':data,'category':category1,'categories':categories})
+
+
+def add_to_cart(request):
+    pass
