@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import brand,banners,menban,brandbnnr,wbanner,hwomencard,hwomencard2,shoes,category,category2,product,fragrance,card,sign,logo,cart2
+from .models import brand,banners,menban,brandbnnr,wbanner,hwomencard,hwomencard2,shoes,category,category2,product,fragrance,card,sign,logo,Cartitem
 # Register your models here.
 
 admin.site.register(brand)#
@@ -17,4 +17,4 @@ admin.site.register(fragrance)#
 admin.site.register(card)#
 admin.site.register(sign)
 admin.site.register(logo)
-admin.site.register(cart2)
+admin.site.register(Cartitem)

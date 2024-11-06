@@ -110,15 +110,18 @@ class card(models.Model):
     def __str__(self):
         return self.title
     
-class cart2(models.Model):
-    pass
     
 
-class addtocrt(models.Model):
+class Cartitem(models.Model):
     Card = models.ForeignKey(card, on_delete=models.CASCADE)
-    image = models.ImageField()
-    quality = models.PositiveIntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=1)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_added = models.DateTimeField(auto_now_add=True)
-    price = models.IntegerField(default=0)
+
+    def total_price(self):
+        return(self.Card.price * self.quantity)
+    
+    def __str__(self):
+        return f"{self.quantity} of {self.Card.title}"
+   
+
 

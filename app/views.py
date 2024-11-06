@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import hashers
 from .models import * 
@@ -129,5 +130,26 @@ def product_det(request,iid,ititle):
     return render(request,'product_detail.html',{'data':data,'category':category1,'categories':categories})
 
 
-def add_to_cart(request):
-    pass
+def view_cart(request):
+    category1=category.objects.all()[:4]
+    categories=category2.objects.all()
+    add_t_crt = Cartitem.objects.filter(user=request.user)
+    total_price = sum(item.total_price for item in add_t_crt)
+    return render(request, 'cart.html',{'add_t_crt':add_t_crt, 'total_price':total_price,'category':category1,'categories':categories})
+
+@login_required
+
+def add_to_cart(request,i_id):
+    card1 = get_object_or_404(Cartitem,id=i_id)
+    cartitem, created = Cartitem.objects.get_or_create(Card=card1,user=request.user)
+
+    if not created:
+        cartitem.quantity += 1
+        cartitem.save()
+    redirect('/cart/')
+
+@login_required
+def remove_crt(request,item_id):
+    items_id = get_object_or_404(Cartitem, id=item_id, user=request.user)
+    items_id.delete()
+    return render(request,'cart.html')
