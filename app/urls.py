@@ -10,6 +10,5 @@ urlpatterns = [path('home/',views.home,name='home'),
                path('logout/',views.signout_user,name='logout'),
                path('profile/',views.profile,name='profile'),
                path('cart/',views.car_t,name='cart'),
-            #    path('i/<int:i_id>/',views.add_to_cart,name='add_to_cart'),
                path('remove/',views.remove,name='remove')
                ]

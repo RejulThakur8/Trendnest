@@ -145,25 +145,7 @@ def car_t(request):
         Total+=int(cd.price)
 
     return render(request,'cart.html',{'cartData':cartData,'Total':Total,'category':category1,'categories':categories})
-# def view_cart(request):
-#     category1=category.objects.all()[:4]
-#     categories=category2.objects.all()
-#     cart_items = Cartitem.objects.filter(user=request.user)
-#     total_price = sum(item.Card.price * item.quantity for item in cart_items)
-#     return render(request, 'cart.html',{'cart_items':cart_items, 'total_price':total_price,'category':category1,'categories':categories})
 
-# @login_required
-
-# def add_to_cart(request,i_id):
-#     card1 = card.objects.get(id=i_id)
-#     cartitem, created = Cartitem.objects.get_or_create(Card=card1,user=request.user)
-
-#     cartitem.quantity += 1
-
-#     cartitem.save()
-#     return redirect('app:view_cart')
-
-# @login_required
 def remove(request):
     if request.method=="POST":
         name1 = request.POST.get('Card')
