@@ -57,26 +57,39 @@
                                 <li class="list-group-item border-0 bg-body-secondary"><strong>Product Title :</strong> {{i.product_title}}</li>
                                 <li class="list-group-item border-0 bg-body-secondary"><strong>Price :</strong> ₹{{i.price}}</li>
                                 <li class="list-group-item border-0 bg-body-secondary"><strong>Rating :</strong> {{i.rating}}</li>
-                                <li class="list-group-item border-0 bg-body-secondary"><strong class="fs-4">Size :</strong><select class="slect-size rounded bg-primary-subtle fs-5 ms-3" style="width:130px">
-                                    <option class="fs-6">Select Size</option>
-                                    <option class="fs-6">Small</option>
-                                    <option class="fs-6">Medium</option>
-                                    <option class="fs-6">Large</option>
-                                    <option class="fs-6">Extra Large</option>
+                          <form method="post" action="/cart/">
+                            {% csrf_token %}
+                              <input type="hidden" name="iid" value={{i.id}}>
+                                <li class="list-group-item border-0 bg-body-secondary"><strong class="fs-4">Size :</strong>
+                                  <select class="slect-size rounded bg-primary-subtle fs-5 ms-3" style="width:130px">
+                                    <option value="" class="fs-6">Select Size</option>
+                                    <option value="" class="fs-6">Small</option>
+                                    <option value="" class="fs-6">Medium</option>
+                                    <option value="" class="fs-6">Large</option>
+                                    <option value="" class="fs-6">Extra Large</option>
                                 </select>
                             </ul>
-                            <section class="quantity d-flex ms-1 m-4">
+                            {% comment %} <section class="quantity d-flex ms-1 m-4">
                               <h6><strong class="fs-4 pt-1">Quantity : </strong></h6>
                               <div class="quantities border border-black d-flex ms-3 w-50 fs-4 align-items-center rounded">
                                 <span class="subtraction position-start bg-primary rounded-start">-</span>
                                 <span class="num">1</span>
                                 <span class="addition bg-primary rounded-end">+</span>
                               </div>
-                            </section>
+                            </section> {% endcomment %}
+
+                            <h6><strong class="fs-4 pt-1">Quantity : </strong></h6>
+                            <input type="number" placeholder='QYT' name="qyt" value="1">
+
                               <div class="buttons ">
-                                
-                                <a id="Add to Cart" href="{% url 'add_to_cart' i.id %}" class="btn btn-warning flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">Add to Cart</a>
+                               
+                              {% comment %} <input type="hidden" name="i_id" id="i_id" value="{{i_id}}"> {% endcomment %}
+                                {% comment %} <a href="{% url 'app:add_to_cart' i.id %}" class="btn btn-warning flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">Add to Cart</button> {% endcomment %}
+                                {% comment %} <a id="buy" href="/i/{{add_to_cart.title}}/{{i.id}}" class="btn btn-warning flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">Buy Now</a> {% endcomment %}
+
+                                <input id="details" type="submit" value="Add To Cart" class="btn btn-warning flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">
                               </div>
+                          </form>
                         </div>
                         {% endfor %}
                     </div>
@@ -86,3 +99,14 @@
 
 <script src="{% static 'js/product_detail.js' %}"></script>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+

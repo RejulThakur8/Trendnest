@@ -16,10 +16,10 @@ def signin(request):
         email=request.POST.get('email')
         password=request.POST.get('password')
         password1=hashers.make_password(password)
-        user = User.objects.filter(username=username)
+        user = User.objects.filter(email=email)
 
         if user.exists():
-            messages.info(request, 'Username already exist! Use different name')
+            messages.info(request, 'Email already exist! Use different mail')
             return redirect('/signin/')
         
         User.objects.create(username=username,email=email,password=password1)
@@ -130,26 +130,51 @@ def product_det(request,iid,ititle):
     return render(request,'product_detail.html',{'data':data,'category':category1,'categories':categories})
 
 
-def view_cart(request):
+def car_t(request):
     category1=category.objects.all()[:4]
     categories=category2.objects.all()
-    add_t_crt = Cartitem.objects.filter(user=request.user)
-    total_price = sum(item.total_price for item in add_t_crt)
-    return render(request, 'cart.html',{'add_t_crt':add_t_crt, 'total_price':total_price,'category':category1,'categories':categories})
+    if request.method=="POST":
+        Card_info = card.objects.get(id=request.POST['iid'])
+        qyt1 = request.POST['qyt']
+        tprice = int(Card_info.price) * int(qyt1)
+        Cartitem.objects.create(Card=Card_info,qyt=qyt1,user=request.user,price=tprice)
 
-@login_required
+    cartData = Cartitem.objects.filter(user=request.user)
+    Total = 0
+    for cd in cartData:
+        Total+=int(cd.price)
 
-def add_to_cart(request,i_id):
-    card1 = get_object_or_404(Cartitem,id=i_id)
-    cartitem, created = Cartitem.objects.get_or_create(Card=card1,user=request.user)
+    return render(request,'cart.html',{'cartData':cartData,'Total':Total,'category':category1,'categories':categories})
+# def view_cart(request):
+#     category1=category.objects.all()[:4]
+#     categories=category2.objects.all()
+#     cart_items = Cartitem.objects.filter(user=request.user)
+#     total_price = sum(item.Card.price * item.quantity for item in cart_items)
+#     return render(request, 'cart.html',{'cart_items':cart_items, 'total_price':total_price,'category':category1,'categories':categories})
 
-    if not created:
-        cartitem.quantity += 1
-        cartitem.save()
-    redirect('/cart/')
+# @login_required
 
-@login_required
-def remove_crt(request,item_id):
-    items_id = get_object_or_404(Cartitem, id=item_id, user=request.user)
-    items_id.delete()
-    return render(request,'cart.html')
+# def add_to_cart(request,i_id):
+#     card1 = card.objects.get(id=i_id)
+#     cartitem, created = Cartitem.objects.get_or_create(Card=card1,user=request.user)
+
+#     cartitem.quantity += 1
+
+#     cartitem.save()
+#     return redirect('app:view_cart')
+
+# @login_required
+def remove(request):
+    if request.method=="POST":
+        name1 = request.POST.get('Card')
+
+        data = Cartitem.objects.filter(Card=name1,user=request.user)
+        data.delete()
+
+        cartData = Cartitem.objects.filter(user=request.user)
+        Total=0
+        for cd in cartData:
+            Total+=int(cd.price)
+
+    return redirect('/cart/')
+

@@ -87,6 +87,14 @@ class fragrance(models.Model):
     frag_name = models.CharField(max_length=110,default='frag')
     def __str__(self):
         return self.frag_name
+    
+SIZE_CHOICE=(
+    ('S', 'Small'),
+    ('M', 'Medium'),
+    ('L', 'Large'),
+    ('XL','Xtra Large'),
+    ('XXl','Double Xtra Lagre'),
+)
 
 
 class card(models.Model):
@@ -98,6 +106,7 @@ class card(models.Model):
     category_name = models.ForeignKey(category,related_name='categoriesname',on_delete=models.CASCADE)
     category2_name = models.ForeignKey(category2,related_name='cat2name',on_delete=models.CASCADE)
     title = models.TextField()
+    size = models.CharField(choices=SIZE_CHOICE,max_length=20)
     product_title = models.CharField(max_length=103,default='women') 
     rating = models.CharField(max_length=31)
     price = models.IntegerField(null=True)
@@ -114,14 +123,12 @@ class card(models.Model):
 
 class Cartitem(models.Model):
     Card = models.ForeignKey(card, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
+    qyt = models.CharField(max_length=100,default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def total_price(self):
-        return(self.Card.price * self.quantity)
+    price = models.IntegerField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     
-    def __str__(self):
-        return f"{self.quantity} of {self.Card.title}"
+    
    
 
 

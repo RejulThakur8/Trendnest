@@ -85,29 +85,40 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
-            <th>Remove</th>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+          <th>Remove</th>
         </tr>
     </thead>
     <tbody>
-        {% for item in add_t_crt %}
+        {% for cd in cartData %}
             <tr>
-                <td>{{ item.Card.title }}</td>
-                <td>Rs{{ item.Card.price }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>Rs{{ item.total_price }}</td>
-                <td>
-                    <a href="{% url 'remove_cart' item.id %}" class="btn btn-danger btn-sm">Remove</a>
-                </td>
+              {% comment %} <td><img src="{{ cd.Card.image }}" class="width:20px height:20px"></td> {% endcomment %}
+              <td><img src="{% static 'image/' %}{{cd.Card.image.url}}" class="width:20px height:20px"></td>
+              
+            <form method="post" action="/remove/">
+              {% csrf_token %}
+              <td>{{ cd.Card }}</td>
+              <td>Rs{{ cd.price }}</td>
+              <td>{{ cd.qyt }}</td>
+              <td>Rs{{ cd.price }}</td>
+              <td>
+                  <input type="submit" value="remove" class="btn btn-danger btn-sm">
+              </td>
+              <input type="hidden" name='Card' id='Card' value="{{cd.Card.id}}">
+            </form>
             </tr>
+            {% empty %}
+            <p> Your cart is empty.</p>
         {% endfor %}
     </tbody>
 </table>
 
-<h3>Total: Rs{{ total_price }}</h3>
+<h3>Total: Rs{{ Total }}</h3>
+
 
 
 {% endblock %}

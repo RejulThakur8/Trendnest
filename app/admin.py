@@ -2,6 +2,11 @@ from django.contrib import admin
 from .models import brand,banners,menban,brandbnnr,wbanner,hwomencard,hwomencard2,shoes,category,category2,product,fragrance,card,sign,logo,Cartitem
 # Register your models here.
 
+
+class cardModelAdmin(admin.ModelAdmin):
+    list_display=['id','title','price','image','brand_name']
+
+
 admin.site.register(brand)#
 admin.site.register(banners)#
 admin.site.register(menban)#
