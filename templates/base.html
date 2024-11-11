@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/product.css' %}">
     <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
     {% comment %} <link rel="stylesheet" href="{% static 'css/signin.css' %}"> {% endcomment %}
   </head>
   <body>
@@ -84,10 +86,10 @@
               </ul>
               {% endif %}
             </div>
-            <a href="#" class="text-dark ms-2 me-3"><i class="bi bi-suit-heart fs-2"></i></a>
+            <a href="/wishlist/" class="text-dark ms-2 me-3"><i class="bi bi-suit-heart fs-2"></i></a>
             <a href="/cart/" class="text-dark ms-2 me-3"><i class="bi bi-bag-heart fs-2"></i></a>
             <a href="#" class="text-dark ms-2 me-3"><i class="bi bi-truck fs-2"></i></a>
-            <a href="#" class="text-dark ms-2"><i class="bi bi-telephone fs-2"></i></a>
+            <a href="/contact/" class="text-dark ms-2"><i class="bi bi-telephone fs-2"></i></a>
           </div>
         </div>
       </div>
@@ -184,12 +186,15 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h6 class="text-uppercase">Online Shopping</h6>
   
-                    <ul class="list-unstyled mb-0">
-                        <li><a class="text-body" href="/products/">Men</a></li>
-                        <li><a class="text-body" href="#!">Women</a></li>
-                        <li><a class="text-body" href="#!">Kids</a></li>
-                        <li><a class="text-body" href="#!">Beauty</a></li>
-                        <li><a class="text-body" href="#!">Gadgets</a></li>
+                    <ul class="list-unstyled text-center mb-0">
+                      {% for i in category %}
+                       {% comment %} <a class="text-body" href="/products/">Men</a> {% endcomment %}
+                        <form method="post" action="/products/" class="d-flex justify-content-center text-decoration-underline">
+                          {% csrf_token %}
+                          <input type="hidden" value="{{i.category_name}}" name="category">
+                          <li class="text-center"><input type="submit" value="{{i.category_name}}" class="btn p-0  border-0"></li>
+                        </form>
+                      {% endfor %}
                     </ul>
                 </div>
                 <!--Grid column-->

@@ -67,7 +67,6 @@ def profile(request):
     return render(request, 'profile.html',{'category':category1,'categories':categories})
 
 def home(request):
-    logo1=logo.objects.all()
     bnr=banners.objects.all()
     homecard=menban.objects.all()
     smcard=brandbnnr.objects.all()
@@ -77,8 +76,6 @@ def home(request):
     shoess=shoes.objects.all()
     category1=category.objects.all()[:4]
     categories=category2.objects.all()
-    for l in logo1:
-        l.logo_image=os.path.basename(l.logo_image.url)
     for b in bnr:
         b.banner=os.path.basename(b.banner.url)
     for hcrd in homecard:
@@ -94,7 +91,7 @@ def home(request):
     for s in shoess:
         s.shoes_banner=os.path.basename(s.shoes_banner.url)
         
-    return render(request,'index.html',{'logo':logo1,'banner':bnr,'hcard':homecard,'smallcard':smcard,'wmnbnr':womenbnr,'womencard':womencard,'womencard2':womencard2,'shoes':shoess,'category':category1,'categories':categories[:2]})
+    return render(request,'index.html',{'banner':bnr,'hcard':homecard,'smallcard':smcard,'wmnbnr':womenbnr,'womencard':womencard,'womencard2':womencard2,'shoes':shoess,'category':category1,'categories':categories[:2]})
 
 
 def cards(request):
@@ -136,15 +133,16 @@ def car_t(request):
     if request.method=="POST":
         Card_info = card.objects.get(id=request.POST['iid'])
         qyt1 = request.POST['qyt']
+        si_ze = request.POST['si-ze']
         tprice = int(Card_info.price) * int(qyt1)
-        Cartitem.objects.create(Card=Card_info,qyt=qyt1,user=request.user,price=tprice)
+        Cartitem.objects.create(Card=Card_info,qyt=qyt1,user=request.user,price=tprice,Size=si_ze)
 
     cartData = Cartitem.objects.filter(user=request.user)
-    Total = 0
+    Subtotal = 0
     for cd in cartData:
-        Total+=int(cd.price)
+        Subtotal+=int(cd.price)
 
-    return render(request,'cart.html',{'cartData':cartData,'Total':Total,'category':category1,'categories':categories})
+    return render(request,'cart.html',{'cartData':cartData,'Subtotal':Subtotal,'category':category1,'categories':categories})
 
 def remove(request):
     if request.method=="POST":
@@ -153,10 +151,50 @@ def remove(request):
         data = Cartitem.objects.filter(Card=name1,user=request.user)
         data.delete()
 
+        
         cartData = Cartitem.objects.filter(user=request.user)
         Total=0
         for cd in cartData:
             Total+=int(cd.price)
 
+    # return render(request,'index.html',{'cartData':cartData,'wishdata':wishdata})
     return redirect('/cart/')
 
+def wish(request):
+    category1=category.objects.all()[:4]
+    categories=category2.objects.all()
+    if request.method=="POST":
+        wish = card.objects.get(id=request.POST['wiid'])
+        price = int(wish.price)
+
+
+        wishdata = wishlist.objects.filter(user=request.user) if request.user.is_authenticated else None
+        for i in wishdata:
+            i.price
+        wishlist.objects.create(product_name=wish,price=price,user=request.user)
+    return render(request, 'wishlist.html',{'wishdata':wishdata,'category':category1,'categories':categories})
+
+# def wish_remove(request):
+#     name2 = request.POST.get('name')
+
+#     data2 = wishlist.objects.filter(product_name=name2,user=request.user)
+#     data2.delete()
+
+#     wishdata = wishlist.objects.filter(user=request.user)
+#     p=0
+#     for i in wishdata:
+#             p+=int(i.price)
+#     return redirect('/wishlist/')
+
+def contact(request):
+    category1=category.objects.all()[:4]
+    categories=category2.objects.all()
+    logo1=logo.objects.all()
+    if request.method=="POST":
+        name = request.POST.get('name1')
+        email = request.POST.get('email1')
+        message = request.POST.get('message')
+        Contactus.objects.create(name=name,email=email,message=message,user=request.user)
+    for l in logo1:
+        l.logo_image=os.path.basename(l.logo_image.url)
+    return render(request,'contact.html',{'logo':logo1,'category':category1,'categories':categories})

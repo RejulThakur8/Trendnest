@@ -124,10 +124,32 @@ class card(models.Model):
 class Cartitem(models.Model):
     Card = models.ForeignKey(card, on_delete=models.CASCADE)
     qyt = models.CharField(max_length=100,default=0)
+    Size = models.CharField(max_length=50,default="s")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return self.Size
     
+
+class wishlist(models.Model):
+    product_name = models.ForeignKey(card, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='statics/image')
+    price = models.IntegerField(null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+
+    
+
+class Contactus(models.Model):
+    name = models.CharField(max_length=30)
+    email = models.EmailField()
+    message = models.TextField(default='There is good service')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
     
    
 

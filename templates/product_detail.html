@@ -43,6 +43,8 @@
                               <span class="visually-hidden">Next</span>
                             </button>
                           </div> {% endcomment %}
+
+                          
                         <div class="col-6 images">
                             <img src="{% static 'image/' %}{{i.image1}}" alt="Image Not Found" class="border border-black" width="400px">
                             <img src="{% static 'image/' %}{{i.image2}}" alt="Image Not Found" class="border border-black" width="400px">
@@ -60,13 +62,12 @@
                           <form method="post" action="/cart/">
                             {% csrf_token %}
                               <input type="hidden" name="iid" value={{i.id}}>
-                                <li class="list-group-item border-0 bg-body-secondary"><strong class="fs-4">Size :</strong>
-                                  <select class="slect-size rounded bg-primary-subtle fs-5 ms-3" style="width:130px">
-                                    <option value="" class="fs-6">Select Size</option>
-                                    <option value="" class="fs-6">Small</option>
-                                    <option value="" class="fs-6">Medium</option>
-                                    <option value="" class="fs-6">Large</option>
-                                    <option value="" class="fs-6">Extra Large</option>
+                                <li class="list-group-item border-0 bg-body-secondary" name="si-ze"><strong class="fs-4">Size :</strong>
+                                  <select class="slect-size rounded bg-primary-subtle fs-5 ms-3" name="si-ze" style="width:130px">
+                                    <option value="S" class="fs-6">Small</option>
+                                    <option value="M" class="fs-6">Medium</option>
+                                    <option value="L" class="fs-6">Large</option>
+                                    <option value="XL" class="fs-6">Extra Large</option>
                                 </select>
                             </ul>
                             {% comment %} <section class="quantity d-flex ms-1 m-4">
@@ -78,18 +79,16 @@
                               </div>
                             </section> {% endcomment %}
 
-                            <h6><strong class="fs-4 pt-1">Quantity : </strong></h6>
-                            <input type="number" placeholder='QYT' name="qyt" value="1">
-
-                              <div class="buttons ">
-                               
-                              {% comment %} <input type="hidden" name="i_id" id="i_id" value="{{i_id}}"> {% endcomment %}
-                                {% comment %} <a href="{% url 'app:add_to_cart' i.id %}" class="btn btn-warning flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">Add to Cart</button> {% endcomment %}
-                                {% comment %} <a id="buy" href="/i/{{add_to_cart.title}}/{{i.id}}" class="btn btn-warning flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">Buy Now</a> {% endcomment %}
-
+                            <section class="quantity d-flex ms-0 m-2">
+                              <h6><strong class="fs-4 pt-1">Quantity : </strong></h6>
+                              <input type="number" placeholder='QYT' class="rounded" id="qyt" name="qyt" value="1">
+                            </section>
+                              <div class="buttons">
+                                <input id="details" type="submit" value="Buy Now" class="btn btn-primary flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">
                                 <input id="details" type="submit" value="Add To Cart" class="btn btn-warning flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">
                               </div>
                           </form>
+                              
                         </div>
                         {% endfor %}
                     </div>
