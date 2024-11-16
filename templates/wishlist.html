@@ -5,6 +5,12 @@
 <div class="container-fluid">
   <div class="container my-5">
     <h1 class="text-center mb-4">My Wishlist</h1>
+
+    {% if error %}
+      <div class="alert alert-danger text-center">
+        {{ error }}
+      </div>
+    {% endif %}
     
     {% if wishdata %}
     <div class="row justify-content-center">
@@ -23,7 +29,7 @@
               <!-- Uncomment and use this form to implement item removal -->
               <form method="post" action="/wremove/">
                 {% csrf_token %}
-                <input type="hidden" name="Card" value="{{ i.id }}">
+                <input type="hidden" name="product_name" value="{{ i.product_name.id }}">
                 <button type="submit" class="btn btn-danger btn-sm mt-2">Remove</button>
               </form>
             </div>

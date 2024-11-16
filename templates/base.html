@@ -44,20 +44,54 @@
             <li class="nav-item" id="nav-items">
               <form method="post" action="/products/" class="d-flex">
                 {% csrf_token %}
+                
                 <input type="hidden" value="{{i.category_name}}" name="category">
                 <input type="submit" value="{{i.category_name}}" class="btn btn-outline-dark me-2 border-0">
               </form>
             </li>
             {% endfor %}
-            {% comment %} {% for i in categories %}
+            {% for i in categories %}
             <li class="nav-item">
-              <form method="post" action="/products/" class="d-flex">
-                {% csrf_token %}
-                <input type="hidden" value="{{i.category2_name}}" name="category2">
-                <input type="submit" value="{{i.category2_name}}" class="btn btn-outline-secondary me-2 border-0">
-              </form>
+              <div class="dropdown">
+                <form method="post" action="/products/" class="d-flex">
+                  {% csrf_token %}
+                  <a class="btn btn-transparent dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <input type="hidden" value="{{i.category2_name}}" name="category2">
+                    <input type="submit" value="{{i.category2_name}}" class="btn btn-outline-dark me-2 border-0">
+                  </a>
+                  <ul class="dropdown-menu d-menu">                    
+                    <div class="container-fluid">
+                      <div class="row">
+                        <h6 class=''>Products</h6>
+                        <div class="row">
+                          {% for i in product %}
+                          <div class="col-md-3 p-0 ps-2" style="width:110px">
+                            <form method="post" action="/products/" class="d-flex">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{i.pro_name}}" name="pro_name" class="form-check-label">
+                                <input type="submit" value="{{i.pro_name}}" name="pro_name" class="form-check-label fs-6 border-0 bg-white">                          
+                            </form>
+                          </div>
+                          {% endfor %}
+                        </div>
+                        <h6 class="mt-2">Brands</h6>
+                        <div class="row">
+                          {% for i in brand %}
+                          <div class="col-md-3 p-0 ps-2" style="width:150px">
+                            <form method="post" action="/products/" class="d-flex">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{i.brand_name}}" name="brand_name" class="form-check-label">
+                                <input type="submit" value="{{i.brand_name}}" name="brand_name" class="form-check-label fs-6 border-0 bg-white">                          
+                            </form>
+                          </div>
+                          {% endfor %}
+                        </div>
+                    </div>
+                  </ul>
+                </form>
+              </div>
             </li>
-            {% endfor %} {% endcomment %}
+            {% endfor %}
           </ul>
 
           <!-- Search Bar -->
@@ -86,10 +120,10 @@
               </ul>
               {% endif %}
             </div>
-            <a href="/wishlist/" class="text-dark ms-2 me-3"><i class="bi bi-suit-heart fs-2"></i></a>
-            <a href="/cart/" class="text-dark ms-2 me-3"><i class="bi bi-bag-heart fs-2"></i></a>
-            <a href="#" class="text-dark ms-2 me-3"><i class="bi bi-truck fs-2"></i></a>
-            <a href="/contact/" class="text-dark ms-2"><i class="bi bi-telephone fs-2"></i></a>
+            <a href="/wishlist/" class="text-dark ms-2 me-3"><i class="bi bi-suit-heart fs-4"></i></a>
+            <a href="/cart/" class="text-dark ms-2 me-3"><i class="bi bi-bag-heart fs-4"></i></a>
+            <a href="#" class="text-dark ms-2 me-3"><i class="bi bi-truck fs-3"></i></a>
+            <a href="/contact/" class="text-dark ms-2"><i class="bi bi-telephone fs-4"></i></a>
           </div>
         </div>
       </div>
@@ -247,7 +281,7 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
         © 2020 Copyright:
-        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        <a class="text-reset fw-bold" href="http://127.0.0.1:8000/home/">TrendNest.com</a>
     </div>
     <!-- Copyright -->
   </footer>

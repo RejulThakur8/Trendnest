@@ -89,6 +89,7 @@ class fragrance(models.Model):
         return self.frag_name
     
 SIZE_CHOICE=(
+    ('NA', 'NA'),
     ('S', 'Small'),
     ('M', 'Medium'),
     ('L', 'Large'),
@@ -119,7 +120,10 @@ class card(models.Model):
     def __str__(self):
         return self.title
     
-    
+# class product_card(models.Model):
+#     image = models.ImageField(upload_to="statics/image")
+#     title = models.TextField()
+#     product_title = models.CharField(max_length=100,default="AB")
 
 class Cartitem(models.Model):
     Card = models.ForeignKey(card, on_delete=models.CASCADE)

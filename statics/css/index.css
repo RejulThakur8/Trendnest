@@ -45,3 +45,9 @@
 .signin{
     cursor: pointer;
 }
+
+
+.d-menu{
+    width: 1000px;
+    right: 0px;
+}
