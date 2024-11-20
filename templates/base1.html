@@ -45,7 +45,7 @@
             <li class="nav-item">
               <form method="post" action="/products/" class="d-flex">
                 {% csrf_token %}
-                <input type="hidden" value="{{i.category2_name}}" name="category2">
+                <input type="hidden" value="{{i.category2_name}}" name="categ">
                 <input type="submit" value="{{i.category2_name}}" class="btn btn-outline-secondary me-2 border-0">
               </form>
             </li>

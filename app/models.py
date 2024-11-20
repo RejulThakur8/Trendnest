@@ -95,22 +95,31 @@ SIZE_CHOICE=(
     ('L', 'Large'),
     ('XL','Xtra Large'),
     ('XXl','Double Xtra Lagre'),
+    ('UK','5'),
+    ('UK','6'),
+    ('UK','7'),
+    ('UK','8'),
+    ('UK','9'),
+    ('UK','10'),
+    ('UK','11'),
 )
+
+
 
 
 class card(models.Model):
     image = models.ImageField(upload_to='statics/image',default="ab")
+    title = models.TextField()
+    size = models.CharField(choices=SIZE_CHOICE,max_length=20)
+    product_title = models.CharField(max_length=103,default='women') 
+    rating = models.CharField(max_length=31)
+    price = models.IntegerField(null=True)
     brand_name = models.ForeignKey(brand,related_name='brand',on_delete=models.CASCADE)
     pro_name = models.ForeignKey(product,related_name="prod",on_delete=models.CASCADE)
     frag_name = models.ForeignKey(fragrance,related_name='fragname',on_delete=models.CASCADE)
     shoes_cat = models.ForeignKey(shoes,related_name='shoes',on_delete=models.CASCADE)
     category_name = models.ForeignKey(category,related_name='categoriesname',on_delete=models.CASCADE)
     category2_name = models.ForeignKey(category2,related_name='cat2name',on_delete=models.CASCADE)
-    title = models.TextField()
-    size = models.CharField(choices=SIZE_CHOICE,max_length=20)
-    product_title = models.CharField(max_length=103,default='women') 
-    rating = models.CharField(max_length=31)
-    price = models.IntegerField(null=True)
     image1 = models.ImageField(upload_to='statics/image')
     image2 = models.ImageField(upload_to='statics/image')
     image3 = models.ImageField(upload_to='statics/image')

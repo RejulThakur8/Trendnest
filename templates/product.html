@@ -12,11 +12,11 @@
             <div class="container-fluid">
                 <div class="row">
                     <!-- Sidebar: Brands and Categories -->
-                    {% comment %} <div class="cats col-12 col-md-4 col-lg-3"> 
+                    <div class="cats col-12 col-md-4 col-lg-3"> 
                         <section class="side-nav border rounded-2 mt-3" style="width:158px">
-                            <div class="accordion" id="sideNavAccordion">
+                            <div class="accordion" id="AccordionExample">
                                 <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingCategories">
+                                    <h2 class="accordion-header">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCategories" aria-expanded="true" aria-controls="collapseCategories">
                                             Categories
                                         </button>
@@ -28,7 +28,7 @@
                                                 {% csrf_token %}
                                                 <ul class="list-group">
                                                     <li class="list-group-item ps-2 p-0 border-0">
-                                                        <input type="hidden" value="{{i.category2_name}}" name="category2">
+                                                        <input type="hidden" value="{{i.category2_name}}" name="category">
                                                         <input type="submit" value="{{i.category2_name}}" class="form-check-label fs-6 border-0 bg-white">
                                                     </li>
                                                 </ul>
@@ -39,20 +39,44 @@
                                 </div>
 
                                 <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingBrands">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBrands" aria-expanded="false" aria-controls="collapseBrands">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBrands" aria-expanded="true" aria-controls="collapseBrands">
                                             Brands
                                         </button>
                                     </h2>
                                     <div id="collapseBrands" class="accordion-collapse collapse" aria-labelledby="headingBrands" data-bs-parent="#sideNavAccordion">
                                         <div class="accordion-body p-1">
-                                            {% for i in brands %}
-                                            <form method="post" action="/products/" class="d-flex">
+                                            {% for i in brand %}
+                                            <form method="post" action="/br_pro/" class="d-flex">
                                                 {% csrf_token %}
                                                 <ul class="list-group">
                                                     <li class="list-group-item ps-2 p-0 border-0">
-                                                        <input type="hidden" value="{{i.brand_name}}" name="brand" class="form-check-label">
-                                                        <input type="submit" value="{{i.brand_name}}" name="brand" class="form-check-label fs-6 border-0 bg-white">
+                                                        <input type="hidden" value="{{i.brand_name}}" name="brand_name" class="form-check-label">
+                                                        <input type="submit" value="{{i.brand_name}}" class="form-check-label fs-6 border-0 bg-white">
+                                                    </li>
+                                                </ul>
+                                            </form>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
+                                            Products
+                                        </button>
+                                    </h2>
+                                    <div id="collapseProducts" class="accordion-collapse collapse" aria-labelledby="headingProducts" data-bs-parent="#sideNavAccordion">
+                                        <div class="accordion-body p-1">
+                                            {% for i in product %}
+                                            <form method="post" action="/product_name/" class="d-flex">
+                                                {% csrf_token %}
+                                                <ul class="list-group">
+                                                    <li class="list-group-item ps-2 p-0 border-0">
+                                                        <input type="hidden" value="{{i.pro_name}}" name="pro_name" class="form-check-label">
+                                                        <input type="submit" value="{{i.pro_name}}" class="form-check-label fs-6 border-0 bg-white">
                                                     </li>
                                                 </ul>
                                             </form>
@@ -62,7 +86,7 @@
                                 </div>
                             </div>
                         </section>
-                    </div> {% endcomment %}
+                    </div> 
 
                     <!-- Products grid -->
                     <div class="container mx-1 col-12 col-md-8 col-lg-9">

@@ -27,14 +27,14 @@ def signin(request):
         
         messages.success(request, 'Account Created succesfully')
 
-    category1=category.objects.all()[:2]
+    category1=category.objects.all()
     categories=category2.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()
     return render(request,'signin.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
 def signin_user(request):
-    category1=category.objects.all()[:2]
+    category1=category.objects.all()
     categories=category2.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()
@@ -60,7 +60,7 @@ def signin_user(request):
     return render('signin.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
 def signout_user(request):
-    category1=category.objects.all()[:3]
+    category1=category.objects.all()
     categories=category2.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()
@@ -69,7 +69,7 @@ def signout_user(request):
 
 
 def profile(request):
-    category1=category.objects.all()[:2]
+    category1=category.objects.all()
     categories=category2.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()
@@ -85,7 +85,7 @@ def home(request):
     womencard=hwomencard.objects.all()
     womencard2=hwomencard2.objects.all()
     shoess=shoes.objects.all()
-    category1=category.objects.all()[:2]
+    category1=category.objects.all()
     categories=category2.objects.all()
     for b in bnr:
         b.banner=os.path.basename(b.banner.url)
@@ -108,11 +108,10 @@ def home(request):
 def cards(request):
         if request.method=="POST":
             title1=request.POST.get("category")
-            print(title1.title())
             card1=category.objects.get(category_name=title1.title())
             print(title1.title())
 
-            category1=category.objects.all()[:4]
+            category1=category.objects.all()
             categories=category2.objects.all()
             brands=brand.objects.all()
             products=product.objects.all()
@@ -125,40 +124,58 @@ def cards(request):
             return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
         return render(request,'index.html')
 
-def sec_card(request):
-    brands=brand.objects.all()
-    products=product.objects.all()
+def br_card(request):
     if request.method=="POST":
         title2=request.POST.get("brand_name")
         c_ard=brand.objects.get(brand_name=title2)
+        category1=category.objects.all()[:4]
+        categories=category2.objects.all()
+        brands=brand.objects.all()
+        products=product.objects.all()
         if c_ard:
-            card_brand=card.objects.filter(brand_name=c_ard)
-            for i in card_brand:
-                i.image=os.path.basename(i.image.url)
-        return render(request,"/products/",{'card_brand':card_brand,'brand':brands,'product':products})
-    return render(request,{'card_brand':card_brand,'brand':brands,'product':products})
+            data=card.objects.filter(brand_name=c_ard)
+            for i in data:
+                i.image=os.path.basename(i.image.name)
+        return render(request,"product.html",{'data':data,'brand':brands,'product':products,'category':category1,'categories':categories})
+    return render(request,'index.html',{'data':data,'brand':brands,'product':products,'category':category1,'categories':categories})
 
-
-def product_det(request,iid,ititle):
+def product_cart(request):
     category1=category.objects.all()[:4]
     categories=category2.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()
+    if request.method=="POST":
+        title3=request.POST.get("pro_name")
+        pro_d_cart=product.objects.get(pro_name=title3)
+        if pro_d_cart:
+            data=card.objects.filter(pro_name=pro_d_cart)
+            for i in data:
+                i.image=os.path.basename(i.image.name)
+        return render(request,"product.html",{'data':data,'brand':brands,'product':products,'category':category1,'categories':categories})
+    return render(request,'index.html',{'data':data,'brand':brands,'product':products,'category':category1,'categories':categories})
+
+def product_det(request,iid,ititle):
+    category1=category.objects.all()
+    categories=category2.objects.all()
+    brands=brand.objects.all()
+    products=product.objects.all()
     prod=card.objects.get(id=iid)
+    
+    SIZE_CHOICE = card._meta.get_field('size').choices
     if prod:
         data=card.objects.filter(title=prod)
     for i in data:
-        i.image1=os.path.basename(i.image1.url)
-        i.image2=os.path.basename(i.image2.url)
-        i.image3=os.path.basename(i.image3.url)
-        i.image4=os.path.basename(i.image4.url)
-        i.image5=os.path.basename(i.image5.url)
-        i.image6=os.path.basename(i.image6.url)
-    return render(request,'product_detail.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+        i.image1=os.path.basename(i.image1.name)
+        i.image2=os.path.basename(i.image2.name)
+        i.image3=os.path.basename(i.image3.name)
+        i.image4=os.path.basename(i.image4.name)
+        i.image5=os.path.basename(i.image5.name)
+        i.image6=os.path.basename(i.image6.name)
+    return render(request,'product_detail.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products,'size_choice':SIZE_CHOICE})
 
-
+@login_required
 def car_t(request):
-    category1=category.objects.all()[:4]
+    category1=category.objects.all()
     categories=category2.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()
@@ -191,10 +208,10 @@ def remove(request):
 
     # return render(request,'index.html',{'cartData':cartData,'wishdata':wishdata})
     return redirect('/cart/')
-
+@login_required
 def wish(request):
     try:
-        category1=category.objects.all()[:4]
+        category1=category.objects.all()
         categories=category2.objects.all()
         brands=brand.objects.all()
         products=product.objects.all()
@@ -239,7 +256,7 @@ def wremove(request):
 
 
 def contact(request):
-    category1=category.objects.all()[:4]
+    category1=category.objects.all()
     categories=category2.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()

@@ -64,10 +64,9 @@
                               <input type="hidden" name="iid" value={{i.id}}>
                                 <li class="list-group-item border-0 bg-body-secondary" name="si-ze"><strong class="fs-4">Size :</strong>
                                   <select class="slect-size rounded bg-primary-subtle fs-5 ms-3" name="si-ze" style="width:130px">
-                                    <option value="S" class="fs-6">Small</option>
-                                    <option value="M" class="fs-6">Medium</option>
-                                    <option value="L" class="fs-6">Large</option>
-                                    <option value="XL" class="fs-6">Extra Large</option>
+                                    {% for value, display in size_choice %}
+                                    <option value="{{value}}" {% if i.size == value %}Selected{% endif %} class="fs-6">{{display}}</option>
+                                    {% endfor %}
                                 </select>
                             </ul>
                             {% comment %} <section class="quantity d-flex ms-1 m-4">
