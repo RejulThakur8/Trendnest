@@ -6,13 +6,18 @@
 
 <!-- Carousel -->
 <div id="carouselExampleFade" class="carousel slide carousel-fade w-90 m-2">
-  <div class="carousel-inner">
-    {% for b in banner %}
-    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-      <img src="{% static 'image/' %}{{b.banner}}" class="d-block w-100 rounded" alt="error">
+  <form method="POST" action="/prodcuts/">
+    {% csrf_token %}
+    <div class="carousel-inner">
+      {% for b in banner %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{% static 'image/' %}{{b.banner}}" class="d-block w-100 rounded" alt="error">
+        <input type='hidden' value="{{b.banner_name}}" name='banner'>
+        <input type="submit" value="{{b.banner_name}}" id='centered-btn'>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
+  </form>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
     <span class="carousel-control-prev-icon bg-black rounded-circle" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>

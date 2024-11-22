@@ -76,7 +76,7 @@ def profile(request):
     return render(request, 'profile.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
 def home(request):
-    bnr=banners.objects.all()
+    bnr=banners.objects.exclude(banner_name='default')
     homecard=menban.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()
