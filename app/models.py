@@ -20,7 +20,10 @@ class brand(models.Model):
 
 class banners(models.Model):
     brand_name = models.ForeignKey(brand,related_name='brand5',on_delete=models.CASCADE,default="men")
+    banner_name = models.CharField(max_length=50)
     banner = models.ImageField(upload_to='statics/image',default='bn')
+    def __str__(self):
+        return self.banner_name
     
     
 class menban(models.Model):
@@ -40,8 +43,11 @@ class brandbnnr(models.Model):
 
 class wbanner(models.Model):
     brand_name = models.ForeignKey(brand,related_name='brand3',on_delete=models.CASCADE,default="levis")
+    wbanner_name = models.CharField(max_length=50)
     women_banner = models.ImageField(upload_to='statics/image',default='Ab')
-
+    def __str__(self):
+        return self.wbanner_name
+    
 class hwomencard(models.Model):
     brand_name = models.ForeignKey(brand,related_name='brand2',on_delete=models.CASCADE,default="polo")
     wcard_name = models.CharField(max_length=20,default="women")
@@ -120,6 +126,13 @@ class card(models.Model):
     shoes_cat = models.ForeignKey(shoes,related_name='shoes',on_delete=models.CASCADE)
     category_name = models.ForeignKey(category,related_name='categoriesname',on_delete=models.CASCADE)
     category2_name = models.ForeignKey(category2,related_name='cat2name',on_delete=models.CASCADE)
+    banner_name = models.ForeignKey(banners,related_name='b_n',on_delete=models.CASCADE)
+    menban_name = models.ForeignKey(menban,related_name='m_bn',on_delete=models.CASCADE)
+    titileb = models.ForeignKey(brandbnnr, related_name='titl_b',on_delete=models.CASCADE)
+    wbanner_name = models.ForeignKey(wbanner, related_name='wb_n',on_delete=models.CASCADE)
+    shoes_cat = models.ForeignKey(shoes, related_name='sh_cat',on_delete=models.CASCADE)
+    wcard_name = models.ForeignKey(hwomencard, related_name='wc_nm',on_delete=models.CASCADE)
+    wcard2_name = models.ForeignKey(hwomencard2,related_name='wc2_n',on_delete=models.CASCADE)
     image1 = models.ImageField(upload_to='statics/image')
     image2 = models.ImageField(upload_to='statics/image')
     image3 = models.ImageField(upload_to='statics/image')
