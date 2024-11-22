@@ -108,21 +108,6 @@ def home(request):
     return render(request,'index.html',{'banner':bnr,'hcard':homecard,'smallcard':smcard,'mbnr':menbnr,'wmnbnr':womenbnr,'womencard':womencard,'womencard2':womencard2,'shoes':shoess,'category':category1,'categories':categories[:2],'brand':brands,'product':products})
 
 
-def baners(request):
-    if request.method=="POST":
-        baner = request.POST.get('banner')
-        baner1 = banners.objects.get(banner_name=baner)
-        category1=category.objects.all()
-        categories=category2.objects.all()
-        brands=brand.objects.all()
-        products=product.objects.all()
-        if baner1:
-            data=card.objects.filter(banner_name=baner1)
-            for i in data:
-                i.image=os.path.basename(i.image.name)
-        return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
-    return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
-
 
 def cards(request):
         if request.method=="POST":
@@ -190,6 +175,37 @@ def product_det(request,iid,ititle):
         i.image5=os.path.basename(i.image5.name)
         i.image6=os.path.basename(i.image6.name)
     return render(request,'product_detail.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products,'size_choice':SIZE_CHOICE})
+
+
+def baners(request):
+    if request.method=="POST":
+        baner = request.POST.get("banners")
+        baner1 = banners.objects.get(banner_name=baner)
+        category1=category.objects.all()
+        categories=category2.objects.all()
+        brands=brand.objects.all()
+        products=product.objects.all()
+        if baner1:
+            data=card.objects.filter(banner_name=baner1)
+            for i in data:
+                i.image=os.path.basename(i.image.name)
+        return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+    return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+
+def Trends(request):
+    if request.method=="POST":
+        trend = request.POST.get("trends")
+        trend1 = brandbnnr.objects.get(brnd_bn=trend)
+        category1=category.objects.all()
+        categories=category2.objects.all()
+        brands=brand.objects.all()
+        products=product.objects.all()
+        if trend1:
+            data=card.objects.filter(brnd_bn=trend1)
+            for i in data:
+                i.image=os.path.basename(i.image.name)
+        return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+    return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
 @login_required
 def car_t(request):
