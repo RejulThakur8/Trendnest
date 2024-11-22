@@ -16,5 +16,6 @@ urlpatterns = [path('home/',views.home,name='home'),
                path('contact/',views.contact,name='contact'),
                path('wremove/',views.wremove,name='wremove'),
                path('br_pro/',views.br_card,name='br_pro'),
-               path('product_name/',views.product_cart,name='product_name')
+               path('product_name/',views.product_cart,name='product_name'),
+               path('baners/',views.baners,name='baners')
                ]

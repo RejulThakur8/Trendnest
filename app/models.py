@@ -14,12 +14,12 @@ class logo(models.Model):
 
 
 class brand(models.Model):
-    brand_name = models.CharField(max_length=50,default='H&M')
+    brand_name = models.CharField(max_length=50)
     def __str__(self):
         return self.brand_name
 
 class banners(models.Model):
-    brand_name = models.ForeignKey(brand,related_name='brand5',on_delete=models.CASCADE,default="men")
+    brand_name = models.ForeignKey(brand,related_name='a',on_delete=models.CASCADE,default="men")
     banner_name = models.CharField(max_length=50)
     banner = models.ImageField(upload_to='statics/image',default='bn')
     def __str__(self):
@@ -27,6 +27,7 @@ class banners(models.Model):
     
     
 class menban(models.Model):
+    brand_name = models.ForeignKey(brand, related_name='b',on_delete=models.CASCADE)
     menban_name = models.CharField(max_length=50,default="kids")
     men_ban = models.ImageField(upload_to='statics/image',default='cs')       
     def __str__(self):
@@ -34,22 +35,31 @@ class menban(models.Model):
     
     
 class brandbnnr(models.Model):
-    brand_name = models.ForeignKey(brand,related_name='brand4',on_delete=models.CASCADE,default="women")
-    titleb=models.CharField(max_length=50,default='brands')
+    brand_name = models.ForeignKey(brand,related_name='c',on_delete=models.CASCADE,default="women")
+    brnd_bn=models.CharField(max_length=50,)
     s_card = models.ImageField(upload_to='statics/image',default='s')       # wait
     def __str__(self):
-        return self.titleb
+        return self.brnd_bn
+    
+
+class mbanner(models.Model):
+    brand_name = models.ForeignKey(brand,related_name='h',on_delete=models.CASCADE,default="men")
+    mbanner_name = models.CharField(max_length=110,default='frag')
+    mbanner_image = models.ImageField(upload_to='statics/image')
+    def __str__(self):
+        return self.mbanner_name
+    
     
 
 class wbanner(models.Model):
-    brand_name = models.ForeignKey(brand,related_name='brand3',on_delete=models.CASCADE,default="levis")
+    brand_name = models.ForeignKey(brand,related_name='d',on_delete=models.CASCADE,default="levis")
     wbanner_name = models.CharField(max_length=50)
     women_banner = models.ImageField(upload_to='statics/image',default='Ab')
     def __str__(self):
         return self.wbanner_name
     
 class hwomencard(models.Model):
-    brand_name = models.ForeignKey(brand,related_name='brand2',on_delete=models.CASCADE,default="polo")
+    brand_name = models.ForeignKey(brand,related_name='e',on_delete=models.CASCADE,default="polo")
     wcard_name = models.CharField(max_length=20,default="women")
     wcard_image = models.ImageField(upload_to='statics/image',default="kj")
     def __str__(self):
@@ -57,7 +67,7 @@ class hwomencard(models.Model):
     
 
 class hwomencard2(models.Model):
-    brand_name = models.ForeignKey(brand,related_name='brand1',on_delete=models.CASCADE,default="trend")
+    brand_name = models.ForeignKey(brand,related_name='f',on_delete=models.CASCADE,default="trend")
     wcard2_name = models.CharField(max_length=20,default="boys")
     wcard2_image = models.ImageField(upload_to='statics/image',default="b")
     def __str__(self):
@@ -65,7 +75,7 @@ class hwomencard2(models.Model):
     
 
 class shoes(models.Model):
-    brand_name = models.ForeignKey(brand,related_name='brands',on_delete=models.CASCADE,default="asian")
+    brand_name = models.ForeignKey(brand,related_name='g',on_delete=models.CASCADE,default="asian")
     shoes_cat = models.CharField(max_length=22)
     shoes_banner = models.ImageField(upload_to='statics/image',default='sho')
     def __str__(self):
@@ -87,12 +97,7 @@ class product(models.Model):
     def __str__(self):
         return self.pro_name
     
-    
-class fragrance(models.Model):
-    brand_name = models.ForeignKey(brand,related_name='brand6',on_delete=models.CASCADE,default="men")
-    frag_name = models.CharField(max_length=110,default='frag')
-    def __str__(self):
-        return self.frag_name
+
     
 SIZE_CHOICE=(
     ('NA', 'NA'),
@@ -122,17 +127,17 @@ class card(models.Model):
     price = models.IntegerField(null=True)
     brand_name = models.ForeignKey(brand,related_name='brand',on_delete=models.CASCADE)
     pro_name = models.ForeignKey(product,related_name="prod",on_delete=models.CASCADE)
-    frag_name = models.ForeignKey(fragrance,related_name='fragname',on_delete=models.CASCADE)
     shoes_cat = models.ForeignKey(shoes,related_name='shoes',on_delete=models.CASCADE)
     category_name = models.ForeignKey(category,related_name='categoriesname',on_delete=models.CASCADE)
     category2_name = models.ForeignKey(category2,related_name='cat2name',on_delete=models.CASCADE)
-    banner_name = models.ForeignKey(banners,related_name='b_n',on_delete=models.CASCADE)
-    menban_name = models.ForeignKey(menban,related_name='m_bn',on_delete=models.CASCADE)
-    titileb = models.ForeignKey(brandbnnr, related_name='titl_b',on_delete=models.CASCADE)
-    wbanner_name = models.ForeignKey(wbanner, related_name='wb_n',on_delete=models.CASCADE)
-    shoes_cat = models.ForeignKey(shoes, related_name='sh_cat',on_delete=models.CASCADE)
-    wcard_name = models.ForeignKey(hwomencard, related_name='wc_nm',on_delete=models.CASCADE)
-    wcard2_name = models.ForeignKey(hwomencard2,related_name='wc2_n',on_delete=models.CASCADE)
+    banner_name = models.ForeignKey(banners,related_name='i',on_delete=models.CASCADE)
+    menban_name = models.ForeignKey(menban,related_name='j',on_delete=models.CASCADE)
+    wbanner_name = models.ForeignKey(wbanner, related_name='l',on_delete=models.CASCADE)
+    shoes_cat = models.ForeignKey(shoes, related_name='m',on_delete=models.CASCADE)
+    wcard_name = models.ForeignKey(hwomencard, related_name='n',on_delete=models.CASCADE)
+    wcard2_name = models.ForeignKey(hwomencard2,related_name='o',on_delete=models.CASCADE)
+    brnd_bn = models.ForeignKey(brandbnnr, related_name='bbnr',on_delete=models.CASCADE)
+    mbanner_name = models.ForeignKey(mbanner, related_name='mb',on_delete=models.CASCADE)
     image1 = models.ImageField(upload_to='statics/image')
     image2 = models.ImageField(upload_to='statics/image')
     image3 = models.ImageField(upload_to='statics/image')

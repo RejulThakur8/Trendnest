@@ -76,23 +76,26 @@ def profile(request):
     return render(request, 'profile.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
 def home(request):
-    bnr=banners.objects.exclude(banner_name='default')
-    homecard=menban.objects.all()
-    brands=brand.objects.all()
-    products=product.objects.all()
-    smcard=brandbnnr.objects.all()
-    womenbnr=wbanner.objects.all()
-    womencard=hwomencard.objects.all()
-    womencard2=hwomencard2.objects.all()
-    shoess=shoes.objects.all()
     category1=category.objects.all()
     categories=category2.objects.all()
+    brands=brand.objects.all()
+    products=product.objects.all()
+    bnr=banners.objects.exclude(banner_name='default')
+    homecard=menban.objects.exclude(menban_name='default')
+    smcard=brandbnnr.objects.exclude(brnd_bn="default")
+    menbnr=mbanner.objects.exclude(mbanner_name="default")
+    womenbnr=wbanner.objects.exclude(wbanner_name="default")
+    womencard=hwomencard.objects.exclude(wcard_name='default')
+    shoess=shoes.objects.exclude(shoes_cat='default')
+    womencard2=hwomencard2.objects.all()
     for b in bnr:
         b.banner=os.path.basename(b.banner.url)
     for hcrd in homecard:
         hcrd.men_ban=os.path.basename(hcrd.men_ban.url)
     for scard in smcard:
         scard.s_card=os.path.basename(scard.s_card.url)
+    for mbnr in menbnr:
+        mbnr.mbanner_image=os.path.basename(mbnr.mbanner_image.url)
     for wbnr in womenbnr:
         wbnr.women_banner=os.path.basename(wbnr.women_banner.url)
     for wcrd in womencard:
@@ -102,7 +105,23 @@ def home(request):
     for s in shoess:
         s.shoes_banner=os.path.basename(s.shoes_banner.url)
         
-    return render(request,'index.html',{'banner':bnr,'hcard':homecard,'smallcard':smcard,'wmnbnr':womenbnr,'womencard':womencard,'womencard2':womencard2,'shoes':shoess,'category':category1,'categories':categories[:2],'brand':brands,'product':products})
+    return render(request,'index.html',{'banner':bnr,'hcard':homecard,'smallcard':smcard,'mbnr':menbnr,'wmnbnr':womenbnr,'womencard':womencard,'womencard2':womencard2,'shoes':shoess,'category':category1,'categories':categories[:2],'brand':brands,'product':products})
+
+
+def baners(request):
+    if request.method=="POST":
+        baner = request.POST.get('banner')
+        baner1 = banners.objects.get(banner_name=baner)
+        category1=category.objects.all()
+        categories=category2.objects.all()
+        brands=brand.objects.all()
+        products=product.objects.all()
+        if baner1:
+            data=card.objects.filter(banner_name=baner1)
+            for i in data:
+                i.image=os.path.basename(i.image.name)
+        return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+    return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
 
 def cards(request):
@@ -110,7 +129,6 @@ def cards(request):
             title1=request.POST.get("category")
             card1=category.objects.get(category_name=title1.title())
             print(title1.title())
-
             category1=category.objects.all()
             categories=category2.objects.all()
             brands=brand.objects.all()
@@ -122,7 +140,7 @@ def cards(request):
                     i.image=os.path.basename(i.image.name)
                     print(i.category_name)
             return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
-        return render(request,'index.html')
+        return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
 def br_card(request):
     if request.method=="POST":
