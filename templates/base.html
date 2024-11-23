@@ -62,18 +62,7 @@
                   <ul class="dropdown-menu d-menu">                    
                     <div class="container-fluid">
                       <div class="row">
-                        <h6 class=''>Products</h6>
-                        <div class="row">
-                          {% for i in product %}
-                          <div class="col-md-3 p-0 ps-2" style="width:110px">
-                            <form method="post" action="/product_name/" class="d-flex">
-                                {% csrf_token %}
-                                <input type="hidden" value="{{i.pro_name}}" name="pro_name" class="form-check-label">
-                                <input type="submit" value="{{i.pro_name}}" class="form-check-label fs-6 border-0 bg-white">                          
-                            </form>
-                          </div>
-                          {% endfor %}
-                        </div>
+                        
                         <h6 class="mt-2">Brands</h6>
                         <div class="row">
                           {% for i in brand %}
@@ -82,6 +71,19 @@
                                 {% csrf_token %}
                                 <input type="hidden" value="{{i.brand_name}}" name="brand_name" class="form-check-label">
                                 <input type="submit" value="{{i.brand_name}}" class="form-check-label fs-6 border-0 bg-white">                          
+                            </form>
+                          </div>
+                          {% endfor %}
+                        </div>
+
+                        <h6 class=''>Products</h6>
+                        <div class="row">
+                          {% for i in product %}
+                          <div class="col-md-3 p-0 ps-2" style="width:110px">
+                            <form method="post" action="/product%name/" class="d-flex">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{i.pro_name}}" name="pro_names" class="form-check-label">
+                                <input type="submit" value="{{i.pro_name}}" class="form-check-label fs-6 border-0 bg-white">                          
                             </form>
                           </div>
                           {% endfor %}

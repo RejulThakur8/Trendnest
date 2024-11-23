@@ -148,8 +148,8 @@ def product_cart(request):
     brands=brand.objects.all()
     products=product.objects.all()
     if request.method=="POST":
-        title3=request.POST.get("pro_name")
-        pro_d_cart=product.objects.get(pro_name=title3)
+        product_name=request.POST.get("pro_names")
+        pro_d_cart=product.objects.get(pro_name=product_name)
         if pro_d_cart:
             data=card.objects.filter(pro_name=pro_d_cart)
             for i in data:
