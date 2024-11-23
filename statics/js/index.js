@@ -8,3 +8,20 @@ document.getElementById("women-banner").id = "kids-banner";
 document.getElementById("kids-card").style.background = "lightskyblue";
 document.getElementById("text-bodies").style.textDecoration = "none";
 document.getElementById('nav-items').style.marginLeft = "10px";
+
+document.querySelectorAll('.custom-button').forEach(button => {
+    button.addEventListener('mouseover', () => {
+      button.style.transition = '0.3s';
+      button.style.transform = 'translateY(-3px)';
+    });
+  
+    button.addEventListener('mouseout', () => {
+      button.style.transform = 'translateY(0)';
+    });
+  
+    button.addEventListener('click', () => {
+      button.classList.add('clicked');
+      setTimeout(() => button.classList.remove('clicked'), 300);
+    });
+  });
+  

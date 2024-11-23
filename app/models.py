@@ -60,7 +60,7 @@ class wbanner(models.Model):
     
 class hwomencard(models.Model):
     brand_name = models.ForeignKey(brand,related_name='e',on_delete=models.CASCADE,default="polo")
-    wcard_name = models.CharField(max_length=20,default="women")
+    wcard_name = models.CharField(max_length=50,default="women")
     wcard_image = models.ImageField(upload_to='statics/image',default="kj")
     def __str__(self):
         return self.wcard_name
@@ -68,7 +68,7 @@ class hwomencard(models.Model):
 
 class hwomencard2(models.Model):
     brand_name = models.ForeignKey(brand,related_name='f',on_delete=models.CASCADE,default="trend")
-    wcard2_name = models.CharField(max_length=20,default="boys")
+    wcard2_name = models.CharField(max_length=50,default="boys")
     wcard2_image = models.ImageField(upload_to='statics/image',default="b")
     def __str__(self):
         return self.wcard2_name

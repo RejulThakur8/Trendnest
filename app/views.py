@@ -207,6 +207,108 @@ def Trends(request):
         return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
     return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
+def Menclothing(request):
+    if request.method=="POST":
+        m_clothing = request.POST.get("Men-clothing")
+        m_clothing1 = mbanner.objects.get(mbanner_name=m_clothing)
+        category1=category.objects.all()
+        categories=category2.objects.all()
+        brands=brand.objects.all()
+        products=product.objects.all()
+        if m_clothing1:
+            data = card.objects.filter(mbanner_name=m_clothing1)
+            for i in data:
+                i.image=os.path.basename(i.image.url)
+        return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+    return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+
+def Wenclothing(request):
+    if request.method=="POST":
+        w_clothing = request.POST.get("Women-clothing")
+        w_clothing1 = wbanner.objects.get(wbanner_name=w_clothing)
+        category1=category.objects.all()
+        categories=category2.objects.all()
+        brands=brand.objects.all()
+        products=product.objects.all()
+        if w_clothing1:
+            data = card.objects.filter(wbanner_name=w_clothing1)
+            for i in data:
+                i.image=os.path.basename(i.image.url)
+        return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+    return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+
+def Topbrand(request):
+    try:
+         category1=category.objects.all()
+         categories=category2.objects.all()
+         brands=brand.objects.all()
+         products=product.objects.all()
+         if request.method=="POST":
+                topbrand = request.POST.get("top-brand")
+                topbrand1 = menban.objects.get(menban_name=topbrand)
+                if topbrand1:
+                    data = card.objects.filter(menban_name=topbrand1)
+                    for i in data:
+                        i.image=os.path.basename(i.image.url)
+                return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+         return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+    except ObjectDoesNotExist:
+        return None
+    
+def Womenbrand(request):
+    try:
+         category1=category.objects.all()
+         categories=category2.objects.all()
+         brands=brand.objects.all()
+         products=product.objects.all()
+         if request.method=="POST":
+                womenbrand = request.POST.get("women-brands")
+                womenbrand1 = hwomencard.objects.get(wcard_name=womenbrand)
+                if womenbrand1:
+                    data = card.objects.filter(wcard_name=womenbrand1)
+                    for i in data:
+                        i.image=os.path.basename(i.image.url)
+                return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+         return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+    except ObjectDoesNotExist:
+        return None
+    
+def Starbrand(request):
+    try:
+        category1=category.objects.all()
+        categories=category2.objects.all()
+        brands=brand.objects.all()
+        products=product.objects.all()
+        if request.method=="POST":
+            star = request.POST.get("star-brands")
+            star1 = hwomencard2.objects.get(wcard2_name=star)
+            if star1:
+                data = card.objects.filter(wcard2_name=star1)
+                for i in data:
+                    i.image=os.path.basename(i.image.url)
+            return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+        return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+    except ObjectDoesNotExist:
+        return None
+
+def Shoesbanner(request):
+    try:
+        category1=category.objects.all()
+        categories=category2.objects.all()
+        brands=brand.objects.all()
+        products=product.objects.all()
+        if request.method=="POST":
+            shoesb = request.POST.get("shoes-banner")
+            shoesb1 = shoes.objects.get(shoes_cat=shoesb)
+            if shoesb1:
+                data = card.objects.filter(shoes_cat=shoesb1)
+                for i in data:
+                    i.image=os.path.basename(i.image.url)
+            return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
+        return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+    except ObjectDoesNotExist:
+        return None
+
 @login_required
 def car_t(request):
     category1=category.objects.all()
