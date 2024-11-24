@@ -309,6 +309,21 @@ def Shoesbanner(request):
     except ObjectDoesNotExist:
         return None
 
+
+def search(request):
+    category1=category.objects.all()
+    categories=category2.objects.all()
+    brands=brand.objects.all()
+    products=product.objects.all()
+    query = request.GET['query']
+    Product_title = card.objects.filter(product_title__icontains=query)
+    Brand_Name = card.objects.filter(brand_name__brand_name__icontains=query)
+    Product_name = card.objects.filter(pro_name__pro_name__icontains=query)
+    data = Product_title.union(Brand_Name,Product_name)
+    for i in data:
+        i.image=os.path.basename(i.image.url)
+    return render(request,'search.html',{'category':category1,'categories':categories,'brand':brands,'product':products,'data':data,'query':query})
+
 @login_required
 def car_t(request):
     category1=category.objects.all()

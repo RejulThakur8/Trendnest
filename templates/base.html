@@ -97,8 +97,9 @@
           </ul>
 
           <!-- Search Bar -->
-          <form class="d-flex ms-0" role="search">
-            <input class="form-control search pe-5" type="search" placeholder="Search" aria-label="Search">
+          <form method="get" action="/search/" class="d-flex ms-0" role="search">
+            {% csrf_token %}
+            <input class="form-control search pe-5" type="search" placeholder="Search" aria-label="Search" name="query" id="query">
           </form>
 
           <!-- Icons for account, favorites, and cart -->
@@ -148,7 +149,7 @@
     <div class="container p-3">
         <!-- Section: Social media -->
         <section class="mb-4">
-            <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button">
+            <a class="btn btn-outline btn-floating m-1" href="#!" role="button">
                 <i class="fab fa-facebook-f"></i>
             </a>
   
@@ -217,60 +218,40 @@
         <!-- Section: Links -->
         <section>
             <!--Grid row-->
-            <div class="row">
+            <div class="row mb-1">
+              <h6 class="text-uppercase">Online Shopping</h6>
                 <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h6 class="text-uppercase">Online Shopping</h6>
-  
-                    <ul class="list-unstyled text-center mb-0">
+                    <div class="d-flex flex-wrap align-items-center">
+                      <h6 class="fw-bold m-0 me-2"> Category : </h6>
                       {% for i in category %}
-                       {% comment %} <a class="text-body" href="/products/">Men</a> {% endcomment %}
-                        <form method="post" action="/products/" class="d-flex justify-content-center text-decoration-underline">
+                        <form method="post" action="/products/" class="d-inline">
                           {% csrf_token %}
                           <input type="hidden" value="{{i.category_name}}" name="category">
-                          <li class="text-center"><input type="submit" value="{{i.category_name}}" class="btn p-0  border-0"></li>
+                          <button type="submit" class="btn">{{i.category_name}}</button>
                         </form>
+                        {% if not forloop.last %}
+                        <span class="pb-1">|</span>
+                        {% endif %}
                       {% endfor %}
-                    </ul>
+                    </div>
                 </div>
                 <!--Grid column-->
   
                 <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h6 class="text-uppercase">Links</h6>
-  
-                    <ul class="list-unstyled mb-0">
-                        <li><a class="text-body" href="#!">Link 1</a></li>
-                        <li><a class="text-body" href="#!">Link 2</a></li>
-                        <li><a class="text-body" href="#!">Link 3</a></li>
-                        <li><a class="text-body" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-                <!--Grid column-->
-  
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h6 class="text-uppercase">Links</h6>
-  
-                    <ul class="list-unstyled mb-0">
-                        <li><a class="text-body" href="#!">Link 1</a></li>
-                        <li><a class="text-body" href="#!">Link 2</a></li>
-                        <li><a class="text-body" href="#!">Link 3</a></li>
-                        <li><a class="text-body" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-                <!--Grid column-->
-  
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h6 class="text-uppercase">Links</h6>
-  
-                    <ul class="list-unstyled mb-0">
-                        <li><a class="text-body" href="#!">Link 1</a></li>
-                        <li><a class="text-body" href="#!">Link 2</a></li>
-                        <li><a class="text-body" href="#!">Link 3</a></li>
-                        <li><a class="text-body" href="#!">Link 4</a></li>
-                    </ul>
+                <div class="row">
+                  <div class="d-flex flex-wrap align-items-center">
+                    <h6 class="fw-bold m-0 me-2">Brands :</h6>
+                    {% for i in brand %}
+                    <form method="POST" action="/br_pro/" class="d-inline me-2">
+                      {% csrf_token %}
+                      <input type="hidden" value="{{ i.brand_name }}" name="brand_name">
+                      <button type="submit" class="btn p-0">{{ i.brand_name }}</button>
+                    </form>
+                    {% if not forloop.last %}
+                        <span class="pb-1">|</span>
+                    {% endif %}
+                    {% endfor %}
+                  </div>
                 </div>
                 <!--Grid column-->
             </div>
@@ -283,11 +264,109 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
         © 2020 Copyright:
-        <a class="text-reset fw-bold" href="http://127.0.0.1:8000/home/">TrendNest.com</a>
+        <a class="text-reset fw-bold" href="http://127.0.0.1:8000/home/" class="text-reset fw-bold">TrendNest.com</a>
     </div>
     <!-- Copyright -->
-  </footer>
+</footer>
   <!-- Footer -->
+
+
+
+  {% comment %} <footer class="footer bg-info-subtle text-center mt-2">
+    <!-- Grid container -->
+    <div class="container p-3">
+        <!-- Section: Social Media -->
+        <section class="mb-4">
+            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="Google">
+                <i class="fab fa-google"></i>
+            </a>
+            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="mb-4">
+            <form action="" method="post">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-auto">
+                        <p class="pt-2">
+                            <strong>Sign up for our newsletter</strong>
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="form-outline d-flex">
+                            <input type="email" class="form-control" placeholder="Enter Your Email" required />
+                            <button type="submit" class="btn btn-outline shadow ms-2 mb-4">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Description Section -->
+        <section class="mb-4">
+            <p>
+                Stay updated with the latest trends and products! Join our community to explore
+                exclusive offers and insights tailored just for you.
+            </p>
+        </section>
+
+        <!-- Links Section -->
+        <section>
+            <div class="row mb-3">
+                <h6 class="text-uppercase">Online Shopping</h6>
+                <div class="d-flex flex-wrap align-items-center">
+                    <h6 class="fw-bold me-2">Category:</h6>
+                    {% for i in category %}
+                    <form method="post" action="/products/" class="d-inline me-2">
+                        {% csrf_token %}
+                        <input type="hidden" name="category" value="{{ i.category_name }}">
+                        <button type="submit" class="btn p-0 text-decoration-none">{{ i.category_name }}</button>
+                    </form>
+                    {% if not forloop.last %}
+                    <span>|</span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="d-flex flex-wrap align-items-center">
+                    <h6 class="fw-bold me-2">Brands:</h6>
+                    {% for i in brand %}
+                    <form method="post" action="/br_pro/" class="d-inline me-2">
+                        {% csrf_token %}
+                        <input type="hidden" name="brand_name" value="{{ i.brand_name }}">
+                        <button type="submit" class="btn  p-0 text-decoration-none">{{ i.brand_name }}</button>
+                    </form>
+                    {% if not forloop.last %}
+                    <span>|</span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center p-3 bg-light">
+        &copy; 2024 <a href="http://127.0.0.1:8000/home/" class="text-reset fw-bold">TrendNest.com</a>
+    </div>
+</footer> {% endcomment %}
+
 
 <!-- JS Scripts -->
 
