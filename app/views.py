@@ -69,11 +69,15 @@ def signout_user(request):
 
 
 def profile(request):
-    category1=category.objects.all()
-    categories=category2.objects.all()
-    brands=brand.objects.all()
-    products=product.objects.all()
-    return render(request, 'profile.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+    if request.user.is_authenticated:
+        category1=category.objects.all()
+        categories=category2.objects.all()
+        brands=brand.objects.all()
+        products=product.objects.all()
+        return render(request, 'profile.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+    else:
+        messages.error(request,"Please login First")
+        return redirect("/home/")
 
 def home(request):
     category1=category.objects.all()
@@ -324,25 +328,29 @@ def search(request):
         i.image=os.path.basename(i.image.url)
     return render(request,'search.html',{'category':category1,'categories':categories,'brand':brands,'product':products,'data':data,'query':query})
 
-@login_required
+
 def car_t(request):
     category1=category.objects.all()
     categories=category2.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()
-    if request.method=="POST":
-        Card_info = card.objects.get(id=request.POST['iid'])
-        qyt1 = request.POST['qyt']
-        si_ze = request.POST['si-ze']
-        tprice = int(Card_info.price) * int(qyt1)
-        Cartitem.objects.create(Card=Card_info,qyt=qyt1,user=request.user,price=tprice,Size=si_ze)
+    if request.user.is_authenticated:
+        if request.method=="POST":
+            Card_info = card.objects.get(id=request.POST['iid'])
+            qyt1 = request.POST['qyt']
+            si_ze = request.POST['si-ze']
+            tprice = int(Card_info.price) * int(qyt1)
+            Cartitem.objects.create(Card=Card_info,qyt=qyt1,user=request.user,price=tprice,Size=si_ze)
 
-    cartData = Cartitem.objects.filter(user=request.user)
-    Subtotal = 0
-    for cd in cartData:
-        Subtotal+=int(cd.price)
+        cartData = Cartitem.objects.filter(user=request.user)
+        Subtotal = 0
+        for cd in cartData:
+            Subtotal+=int(cd.price)
 
-    return render(request,'cart.html',{'cartData':cartData,'Subtotal':Subtotal,'category':category1,'categories':categories,'brand':brands,'product':products})
+        return render(request,'cart.html',{'cartData':cartData,'Subtotal':Subtotal,'category':category1,'categories':categories,'brand':brands,'product':products})
+    else:
+        messages.warning(request,'If you want to add product! Please login first')
+        return render(request,'cart.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
 def remove(request):
     if request.method=="POST":
@@ -357,43 +365,59 @@ def remove(request):
         for cd in cartData:
             Total+=int(cd.price)
 
-    # return render(request,'index.html',{'cartData':cartData,'wishdata':wishdata})
     return redirect('/cart/')
-@login_required
+
+
+
+# @login_required
+# def wish(request):
+#         try:
+#             category1=category.objects.all()
+#             categories=category2.objects.all()
+#             brands=brand.objects.all()
+#             products=product.objects.all()
+        
+#         except AttributeError as e:
+#             return render(request, "wishlist.html", {'error' : f"database issue {str(e)}"})
+
+#         wishdata = wishlist.objects.filter(user=request.user) 
+#         if request.user.is_authenticated:
+#             if request.method=="POST":
+
+#                 try:
+#                     wish = card.objects.get(id=request.POST['wiid'])
+#                     price = int(wish.price)
+
+#                     if request.user.is_authenticated:
+#                         if not wishlist.objects.filter(product_name=wish,user=request.user).exists():
+#                             wishlist.objects.create(product_name=wish,price=price,user=request.user)
+
+#                     wishdata = wishlist.objects.filter(user = request.user)
+#                 except ObjectDoesNotExist:
+#                     return render(request, 'wishlist.html',{'error':'This product not exist','wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products})
+            
+
+#                 except ValueError:
+#                     return render(request,'wishlist.html',{'error':'Invalid price value.','wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products})
+#         else:
+#             messages.warning(request,'Please login first')
+#         return render(request, 'wishlist.html',{'wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products})
+
 def wish(request):
-    try:
-        category1=category.objects.all()
-        categories=category2.objects.all()
-        brands=brand.objects.all()
-        products=product.objects.all()
-    
-    except AttributeError as e:
-        return render(request, "wishlist.html", {'error' : f"database issue {str(e)}"})
-
-    wishdata = wishlist.objects.filter(user=request.user) if request.user.is_authenticated else None
-
-    if request.method=="POST":
-
-        try:
-            wish = card.objects.get(id=request.POST['wiid'])
-            price = int(wish.price)
-
-            if request.user.is_authenticated:
-                if not wishlist.objects.filter(product_name=wish,user=request.user).exists():
-                    wishlist.objects.create(product_name=wish,price=price,user=request.user)
-
-            wishdata = wishlist.objects.filter(user = request.user)
-        except ObjectDoesNotExist:
-            return render(request, 'wishlist.html',{'error':'This product not exist','wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products})
-        
-
-        except ValueError:
-            return render(request,'wishlist.html',{'error':'Invalid price value.','wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products}
-                          )
-        
-        # for i in wishdata:
-        #     i.price
-    return render(request, 'wishlist.html',{'wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products})
+    category1=category.objects.all()
+    categories=category2.objects.all()
+    brands=brand.objects.all()
+    products=product.objects.all()
+    if request.user.is_authenticated:
+        if request.method=="POST":
+            Wish = card.objects.get(id=request.POST['wiid'])
+            tprice1 = int(Wish.price)
+            wishlist.objects.create(product_name=Wish,price=tprice1,user=request.user)
+        wishdata = wishlist.objects.filter(user=request.user)
+        return render(request,'wishlist.html',{'wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products})
+    else:
+        messages.warning(request,'If You want to add product in your wishlist! Please login first')
+        return render(request, 'wishlist.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
 @login_required
 def wremove(request):
@@ -420,3 +444,57 @@ def contact(request):
     for l in logo1:
         l.logo_image=os.path.basename(l.logo_image.url)
     return render(request,'contact.html',{'logo':logo1,'category':category1,'categories':categories,'brand':brands,'product':products})   
+
+
+
+# def updateprofile(request):
+#         if request.user.is_authenticated:
+#             current_user = User.objects.get(id=request.user.id)
+#             print(current_user)
+#             if request.method=="POST":
+#                 first_name = request.POST.get("first_name")
+#                 last_name = request.POST.get("last_name")
+#                 email = request.POST.get("email")
+#                 username = request.GET("username")
+#                 user = authenticate(current_user=username)
+#                 if user is None:
+#                     messages.success(request,"Username error")
+#                     user = User.objects.update(first_name=first_name,last_name=last_name,email=email)
+#                 messages.success(request,"Your Profile has been updated successfully")
+#                 return redirect("/profileupdate/")
+#             else:
+#                 messages.error(request,"Something error")
+#                 return redirect("/profileupdate/")
+#         else:
+#             messages.error(request,"Your must be login to view this page")
+#             return redirect("/home/")
+
+def updateprofile(request):
+    if request.method=="POST":
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
+        # username = request.POST.get("username")
+        user_id = request.user.id
+
+        user = User.objects.get(id=user_id)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+
+        user.save()
+
+        messages.success(request,"Your Profile has been updated successfully")
+        return redirect("/profileupdate/") 
+    else:
+        messages.error(request,"Something wrong")   
+        return redirect("/profile/") 
+
+#  Order address
+def order(request):
+    category1=category.objects.all()
+    categories=category2.objects.all()
+    brands=brand.objects.all()
+    products=product.objects.all()
+    logo1=logo.objects.all()
+    return render(request,'order.html',{'logo':logo1,'category':category1,'categories':categories,'brand':brands,'product':products})

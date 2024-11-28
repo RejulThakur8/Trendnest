@@ -13,15 +13,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
     <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     
   </head>
   <body>
     <!-- Responsive Navbar -->
-    <nav class="navbar navbar-expand-lg p-0 navbar-light bg-info-subtle sticky-top">
+    <nav class="navbar navbar-expand-lg p-1 navbar-light bg-info-subtle sticky-top">
       <div class="container-fluid">
         <!-- Brand logo -->
-        <a class="navbar-brand p-0" href="/home/">
-          <img src="http://127.0.0.1:8000/static/image/download-removebg-preview.png" class="w-100 w-md-50" height="100" alt="TrendNest Logo">
+        <a class="navbar-brand m-0 p-0" href="/home/">
+          <img src="http://127.0.0.1:8000/static/image/download-removebg-preview.png" class="w-100 w-md-50" height="90" alt="TrendNest Logo">
         </a>
         <!-- Toggle button for mobile view -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,28 +42,63 @@
               </form>
             </li>
             {% endfor %}
-            {% comment %} {% for i in categories %}
-            <li class="nav-item">
-              <form method="post" action="/products/" class="d-flex">
-                {% csrf_token %}
-                <input type="hidden" value="{{i.category2_name}}" name="categ">
-                <input type="submit" value="{{i.category2_name}}" class="btn btn-outline-secondary me-2 border-0">
-              </form>
+            {% for i in categories %}
+            <li class="nav-item" id="nav-items">
+              <div class="dropdown">
+                <form method="post" action="/products/" class="d-flex">
+                  {% csrf_token %}
+                  <a class="btn btn-transparent dropdown-toggle m-0 p-0 border-bottom-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <input type="hidden" value="{{i.category2_name}}" name="category2">
+                    <input type="submit" value="{{i.category2_name}}" class="btn btn-outline-dark p-2 border-0">
+                  </a>
+                  <ul class="dropdown-menu d-menu">                    
+                    <div class="container-fluid">
+                      <div class="row">
+                        
+                        <h6 class="mt-2">Brands</h6>
+                        <div class="row">
+                          {% for i in brand %}
+                          <div class="col-md-3 p-0 ps-2" style="width:150px">
+                            <form method="post" action="/br_pro/" class="d-flex">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{i.brand_name}}" name="brand_name" class="form-check-label">
+                                <input type="submit" value="{{i.brand_name}}" class="form-check-label fs-6 border-0 bg-white">                          
+                            </form>
+                          </div>
+                          {% endfor %}
+                        </div>
+
+                        <h6 class=''>Products</h6>
+                        <div class="row">
+                          {% for i in product %}
+                          <div class="col-md-3 p-0 ps-2" style="width:110px">
+                            <form method="post" action="/product%name/" class="d-flex">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{i.pro_name}}" name="pro_names" class="form-check-label">
+                                <input type="submit" value="{{i.pro_name}}" class="form-check-label fs-6 border-0 bg-white">                          
+                            </form>
+                          </div>
+                          {% endfor %}
+                        </div>
+                    </div>
+                  </ul>
+                </form>
+              </div>
             </li>
-            {% endfor %} {% endcomment %}
+            {% endfor %}
           </ul>
 
           <!-- Search Bar -->
-          <form class="d-flex ms-0" role="search">
+          <form class="d-flex ms-2 w-100" role="search">
             <input class="form-control search pe-5" type="search" placeholder="Search" aria-label="Search">
           </form>
 
           <!-- Icons for account, favorites, and cart -->
           <div class="d-flex align-items-center ms-5">
-            <div class="dropdown w-50 me-2">
+            <div class="dropdown w-25 me-2">
               {% if user.is_authenticated %}
-              <button class="btn btn-transparent dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <a href="/signin/" class="text-dark ms-2"><i class="bi bi-person fs-2"></i></a>
+              <button class="btn btn-transparent dropdown-toggle w-25 p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="/signin/" class="text-dark ms-2 mb-2"><i class="bi bi-person pb-2 fs-2"></i></a>
               </button>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/profile/">{{request.user}}</a></li>
@@ -73,7 +109,7 @@
                 <a href="/signin/" class="text-dark ms-2"><i class="bi bi-person fs-2"></i></a>
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/signin/">Signin/Signup</a></li>
+                <li><a class="dropdown-item ms-2 me-3" href="/signin/">Signin/Signup</a></li>
               </ul>
               {% endif %}
             </div>

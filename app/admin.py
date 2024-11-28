@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import brand,banners,menban,brandbnnr,wbanner,hwomencard,hwomencard2,shoes,category,category2,product,mbanner,card,sign,logo,Cartitem,Contactus,wishlist
+from .models import brand,banners,menban,brandbnnr,wbanner,hwomencard,hwomencard2,shoes,category,category2,product,mbanner,card,sign,logo,Cartitem,Contactus,wishlist,Order
 # Register your models here.
 
 
@@ -25,3 +25,4 @@ admin.site.register(logo)
 admin.site.register(Cartitem)
 admin.site.register(Contactus)
 admin.site.register(wishlist)
+admin.site.register(Order)

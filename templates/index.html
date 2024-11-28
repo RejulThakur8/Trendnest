@@ -4,6 +4,17 @@
 
 {% load static %}
 
+{% if messages %}
+
+{% for message in messages %}
+
+<div class="alert alert-{{ message.tags }}" role="alert">
+    {{message}}
+</div>
+
+{% endfor %}
+{% endif %}
+
 <!-- Carousel -->
 <div id="carouselExampleFade" class="carousel slide carousel-fade w-90 m-2">
     <div class="carousel-inner">

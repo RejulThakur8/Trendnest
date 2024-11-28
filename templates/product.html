@@ -98,7 +98,7 @@
                                         {% csrf_token %}
                                         <input type="hidden" name="wiid" value={{i.id}}>
                                         <div class="card m-2" style="width: 100%;">
-                                            <img src="{% static 'image/' %}{{i.image}}" name="iimage" class="img-fluid mt-2 ms-2 me-2" alt="{{i.title}}" style="height: 305px; object-fit: cover;">
+                                            <img src="{% static 'image/' %}{{i.image}}" name="image1" class="img-fluid mt-2 ms-2 me-2" alt="{{i.title}}" style="height: 305px; object-fit: cover;">
                                             
                                             <!-- Heart icon -->
                                             <a href="/wishlist/" class="wish position-absolute heart-toggle" style="z-index: 1; top:3% right: 25px;">

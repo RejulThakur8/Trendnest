@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class sign(models.Model):
+    first_name=models.CharField(max_length=100)
+    last_name=models.CharField(max_length=100)
     username=models.CharField(max_length=100)
     password=models.CharField(max_length=100)
     email=models.EmailField(max_length=50)
@@ -167,7 +169,6 @@ class Cartitem(models.Model):
 
 class wishlist(models.Model):
     product_name = models.ForeignKey(card, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='statics/image')
     price = models.IntegerField(null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 
@@ -184,4 +185,17 @@ class Contactus(models.Model):
     
    
 
+class Order(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    f_name = models.CharField(max_length=50)
+    l_name = models.CharField(max_length=50)
+    address1 = models.TextField()
+    address2 = models.TextField()
+    Phoneno1 = models.IntegerField(default=0)
+    alterPhone = models.IntegerField(default=0)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    pincode = models.IntegerField()
 
+    def __str__(self):
+        return self.f_name

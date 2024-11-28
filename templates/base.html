@@ -139,7 +139,6 @@
 
 
 
-
     {% endblock %}
 
 
@@ -268,111 +267,12 @@
     </div>
     <!-- Copyright -->
 </footer>
-  <!-- Footer -->
-
-
-
-  {% comment %} <footer class="footer bg-info-subtle text-center mt-2">
-    <!-- Grid container -->
-    <div class="container p-3">
-        <!-- Section: Social Media -->
-        <section class="mb-4">
-            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="Twitter">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="Google">
-                <i class="fab fa-google"></i>
-            </a>
-            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="LinkedIn">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a class="btn btn-outline btn-floating m-1" href="#!" role="button" aria-label="GitHub">
-                <i class="fab fa-github"></i>
-            </a>
-        </section>
-
-        <!-- Newsletter Section -->
-        <section class="mb-4">
-            <form action="" method="post">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-auto">
-                        <p class="pt-2">
-                            <strong>Sign up for our newsletter</strong>
-                        </p>
-                    </div>
-                    <div class="col-md-6 col-12">
-                        <div class="form-outline d-flex">
-                            <input type="email" class="form-control" placeholder="Enter Your Email" required />
-                            <button type="submit" class="btn btn-outline shadow ms-2 mb-4">Subscribe</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </section>
-
-        <!-- Description Section -->
-        <section class="mb-4">
-            <p>
-                Stay updated with the latest trends and products! Join our community to explore
-                exclusive offers and insights tailored just for you.
-            </p>
-        </section>
-
-        <!-- Links Section -->
-        <section>
-            <div class="row mb-3">
-                <h6 class="text-uppercase">Online Shopping</h6>
-                <div class="d-flex flex-wrap align-items-center">
-                    <h6 class="fw-bold me-2">Category:</h6>
-                    {% for i in category %}
-                    <form method="post" action="/products/" class="d-inline me-2">
-                        {% csrf_token %}
-                        <input type="hidden" name="category" value="{{ i.category_name }}">
-                        <button type="submit" class="btn p-0 text-decoration-none">{{ i.category_name }}</button>
-                    </form>
-                    {% if not forloop.last %}
-                    <span>|</span>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="d-flex flex-wrap align-items-center">
-                    <h6 class="fw-bold me-2">Brands:</h6>
-                    {% for i in brand %}
-                    <form method="post" action="/br_pro/" class="d-inline me-2">
-                        {% csrf_token %}
-                        <input type="hidden" name="brand_name" value="{{ i.brand_name }}">
-                        <button type="submit" class="btn  p-0 text-decoration-none">{{ i.brand_name }}</button>
-                    </form>
-                    {% if not forloop.last %}
-                    <span>|</span>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Copyright -->
-    <div class="text-center p-3 bg-light">
-        &copy; 2024 <a href="http://127.0.0.1:8000/home/" class="text-reset fw-bold">TrendNest.com</a>
-    </div>
-</footer> {% endcomment %}
-
 
 <!-- JS Scripts -->
 
 <script src="{% static 'js/index.js' %}"></script>
 <script src="{% static 'js/product_details.js' %}"></script>
-<script src="{% static 'js/signin.js' %}"></script>
+<script src="{% static 'js/order.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
   </body>
