@@ -11,6 +11,9 @@ import os
 
 # Create your views here.
 
+
+# User Register Section  ------>
+
 def signin(request):
     if request.method=="POST":
         username=request.POST.get('username')
@@ -32,6 +35,9 @@ def signin(request):
     brands=brand.objects.all()
     products=product.objects.all()
     return render(request,'signin.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+
+
+#   Login Section   ----------->
 
 def signin_user(request):
     category1=category.objects.all()
@@ -59,6 +65,10 @@ def signin_user(request):
         
     return render('signin.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
+
+
+# Logout Section  ------->
+
 def signout_user(request):
     category1=category.objects.all()
     categories=category2.objects.all()
@@ -67,6 +77,8 @@ def signout_user(request):
     logout(request)
     return redirect('/home/',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
+
+# Profile Section --->
 
 def profile(request):
     if request.user.is_authenticated:
@@ -78,6 +90,8 @@ def profile(request):
     else:
         messages.error(request,"Please login First")
         return redirect("/home/")
+    
+# Home Template   ----->
 
 def home(request):
     category1=category.objects.all()
@@ -91,7 +105,7 @@ def home(request):
     womenbnr=wbanner.objects.exclude(wbanner_name="default")
     womencard=hwomencard.objects.exclude(wcard_name='default')
     shoess=shoes.objects.exclude(shoes_cat='default')
-    womencard2=hwomencard2.objects.all()
+    womencard2=hwomencard2.objects.all()[:10]
     for b in bnr:
         b.banner=os.path.basename(b.banner.url)
     for hcrd in homecard:
@@ -112,6 +126,7 @@ def home(request):
     return render(request,'index.html',{'banner':bnr,'hcard':homecard,'smallcard':smcard,'mbnr':menbnr,'wmnbnr':womenbnr,'womencard':womencard,'womencard2':womencard2,'shoes':shoess,'category':category1,'categories':categories[:2],'brand':brands,'product':products})
 
 
+# Category -->
 
 def cards(request):
         if request.method=="POST":
@@ -131,6 +146,10 @@ def cards(request):
             return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
         return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
+
+
+#  Brand-Name  --->
+
 def br_card(request):
     if request.method=="POST":
         title2=request.POST.get("brand_name")
@@ -146,6 +165,10 @@ def br_card(request):
         return render(request,"product.html",{'data':data,'brand':brands,'product':products,'category':category1,'categories':categories})
     return render(request,'index.html',{'data':data,'brand':brands,'product':products,'category':category1,'categories':categories})
 
+
+
+#  Product Card --->
+
 def product_cart(request):
     category1=category.objects.all()[:4]
     categories=category2.objects.all()
@@ -160,6 +183,11 @@ def product_cart(request):
                 i.image=os.path.basename(i.image.name)
         return render(request,"product.html",{'data':data,'brand':brands,'product':products,'category':category1,'categories':categories})
     return render(request,'index.html',{'data':data,'brand':brands,'product':products,'category':category1,'categories':categories})
+
+
+
+
+# Product Details ---->
 
 def product_det(request,iid,ititle):
     category1=category.objects.all()
@@ -181,6 +209,9 @@ def product_det(request,iid,ititle):
     return render(request,'product_detail.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products,'size_choice':SIZE_CHOICE})
 
 
+
+# Banners Section    ------>
+
 def baners(request):
     if request.method=="POST":
         baner = request.POST.get("banners")
@@ -195,6 +226,9 @@ def baners(request):
                 i.image=os.path.basename(i.image.name)
         return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
     return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+
+
+# Brand Banners  -------->
 
 def Trends(request):
     if request.method=="POST":
@@ -211,6 +245,9 @@ def Trends(request):
         return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
     return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
+
+# Men Brand Banner Section --------->
+
 def Menclothing(request):
     if request.method=="POST":
         m_clothing = request.POST.get("Men-clothing")
@@ -226,6 +263,10 @@ def Menclothing(request):
         return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
     return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
 
+
+
+# Women Brand Banner Section --------->
+
 def Wenclothing(request):
     if request.method=="POST":
         w_clothing = request.POST.get("Women-clothing")
@@ -240,6 +281,10 @@ def Wenclothing(request):
                 i.image=os.path.basename(i.image.url)
         return render(request,'product.html',{'data':data,'category':category1,'categories':categories,'brand':brands,'product':products})
     return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+
+
+
+# Top Brand Banners Section   ---------->
 
 def Topbrand(request):
     try:
@@ -259,6 +304,9 @@ def Topbrand(request):
     except ObjectDoesNotExist:
         return None
     
+
+# # Women Brand Banner Section --------->
+
 def Womenbrand(request):
     try:
          category1=category.objects.all()
@@ -277,6 +325,9 @@ def Womenbrand(request):
     except ObjectDoesNotExist:
         return None
     
+
+# Star Women Brand Banner Section --------->
+
 def Starbrand(request):
     try:
         category1=category.objects.all()
@@ -294,6 +345,9 @@ def Starbrand(request):
         return render(request,'index.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
     except ObjectDoesNotExist:
         return None
+
+
+# Shoes Brand Banner Section --------->        
 
 def Shoesbanner(request):
     try:
@@ -314,6 +368,8 @@ def Shoesbanner(request):
         return None
 
 
+# Search Functionality --->
+
 def search(request):
     category1=category.objects.all()
     categories=category2.objects.all()
@@ -329,6 +385,8 @@ def search(request):
     return render(request,'search.html',{'category':category1,'categories':categories,'brand':brands,'product':products,'data':data,'query':query})
 
 
+#   Cart ----->
+
 def car_t(request):
     category1=category.objects.all()
     categories=category2.objects.all()
@@ -337,7 +395,7 @@ def car_t(request):
     if request.user.is_authenticated:
         if request.method=="POST":
             Card_info = card.objects.get(id=request.POST['iid'])
-            qyt1 = request.POST['qyt']
+            qyt1 = request.POST['quantity']
             si_ze = request.POST['si-ze']
             tprice = int(Card_info.price) * int(qyt1)
             Cartitem.objects.create(Card=Card_info,qyt=qyt1,user=request.user,price=tprice,Size=si_ze)
@@ -351,6 +409,9 @@ def car_t(request):
     else:
         messages.warning(request,'If you want to add product! Please login first')
         return render(request,'cart.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+    
+
+# Remove Items from cart Section ------->
 
 def remove(request):
     if request.method=="POST":
@@ -369,39 +430,7 @@ def remove(request):
 
 
 
-# @login_required
-# def wish(request):
-#         try:
-#             category1=category.objects.all()
-#             categories=category2.objects.all()
-#             brands=brand.objects.all()
-#             products=product.objects.all()
-        
-#         except AttributeError as e:
-#             return render(request, "wishlist.html", {'error' : f"database issue {str(e)}"})
-
-#         wishdata = wishlist.objects.filter(user=request.user) 
-#         if request.user.is_authenticated:
-#             if request.method=="POST":
-
-#                 try:
-#                     wish = card.objects.get(id=request.POST['wiid'])
-#                     price = int(wish.price)
-
-#                     if request.user.is_authenticated:
-#                         if not wishlist.objects.filter(product_name=wish,user=request.user).exists():
-#                             wishlist.objects.create(product_name=wish,price=price,user=request.user)
-
-#                     wishdata = wishlist.objects.filter(user = request.user)
-#                 except ObjectDoesNotExist:
-#                     return render(request, 'wishlist.html',{'error':'This product not exist','wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products})
-            
-
-#                 except ValueError:
-#                     return render(request,'wishlist.html',{'error':'Invalid price value.','wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products})
-#         else:
-#             messages.warning(request,'Please login first')
-#         return render(request, 'wishlist.html',{'wishdata':wishdata,'category':category1,'categories':categories,'brand':brands,'product':products})
+#   Wishlist ---->
 
 def wish(request):
     category1=category.objects.all()
@@ -418,6 +447,9 @@ def wish(request):
     else:
         messages.warning(request,'If You want to add product in your wishlist! Please login first')
         return render(request, 'wishlist.html',{'category':category1,'categories':categories,'brand':brands,'product':products})
+    
+
+# Remove Items from wishlist Section ------->    
 
 @login_required
 def wremove(request):
@@ -428,7 +460,10 @@ def wremove(request):
         data1.delete()
         
         return redirect('/wishlist')
+    
 
+
+# Contact Us Section ----->
 
 def contact(request):
     category1=category.objects.all()
@@ -447,27 +482,7 @@ def contact(request):
 
 
 
-# def updateprofile(request):
-#         if request.user.is_authenticated:
-#             current_user = User.objects.get(id=request.user.id)
-#             print(current_user)
-#             if request.method=="POST":
-#                 first_name = request.POST.get("first_name")
-#                 last_name = request.POST.get("last_name")
-#                 email = request.POST.get("email")
-#                 username = request.GET("username")
-#                 user = authenticate(current_user=username)
-#                 if user is None:
-#                     messages.success(request,"Username error")
-#                     user = User.objects.update(first_name=first_name,last_name=last_name,email=email)
-#                 messages.success(request,"Your Profile has been updated successfully")
-#                 return redirect("/profileupdate/")
-#             else:
-#                 messages.error(request,"Something error")
-#                 return redirect("/profileupdate/")
-#         else:
-#             messages.error(request,"Your must be login to view this page")
-#             return redirect("/home/")
+#   Profile update section    ---------->
 
 def updateprofile(request):
     if request.method=="POST":
@@ -490,11 +505,28 @@ def updateprofile(request):
         messages.error(request,"Something wrong")   
         return redirect("/profile/") 
 
-#  Order address
-def order(request):
+
+
+#  Order address --------->
+
+def shipping_address(request):
     category1=category.objects.all()
     categories=category2.objects.all()
     brands=brand.objects.all()
     products=product.objects.all()
     logo1=logo.objects.all()
-    return render(request,'order.html',{'logo':logo1,'category':category1,'categories':categories,'brand':brands,'product':products})
+    if request.method =="POST":
+        first_name = request.POST.get("f_name")
+        last_name = request.POST.get("l_name")
+        phone_no = request.POST.get("phone_no")
+        alternate_no = request.POST.get("Alternate_phone")
+        address1 = request.POST.get("address1")
+        address2 = request.POST.get("address2")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        zip = request.POST.get("zip")
+        Shippingaddress.objects.create(f_name=first_name, l_name=last_name,address1=address1,address2=address2,Phoneno1=phone_no,alterPhone=alternate_no,city=city,state=state,pincode=zip)
+        messages.success(request,"Your Order is Successfully Place")
+        return redirect('/home/',{'logo':logo1,'category':category1,'categories':categories,'brand':brands,'product':products})
+    else:
+        return render(request,'Shipping_address.html',{'logo':logo1,'category':category1,'categories':categories,'brand':brands,'product':products})

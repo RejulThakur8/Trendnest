@@ -69,19 +69,22 @@
                                     {% endfor %}
                                 </select>
                             </ul>
-                            {% comment %} <section class="quantity d-flex ms-1 m-4">
-                              <h6><strong class="fs-4 pt-1">Quantity : </strong></h6>
+                            <section class="quantity d-flex ms-0 m-4">
+                              <h6 class="pt-1"><strong class="fs-4">Quantity : </strong></h6>
                               <div class="quantities border border-black d-flex ms-3 w-50 fs-4 align-items-center rounded">
-                                <span class="subtraction position-start bg-primary rounded-start">-</span>
-                                <span class="num">1</span>
-                                <span class="addition bg-primary rounded-end">+</span>
+                                <span class="subtraction position-start bg-primary rounded-start w-50 h-100">-</span>
+                                <input name="quantity" class="num w-50 text-center" id="quantity" value="1">
+                                <span class="addition bg-primary rounded-end w-50 h-100">+</span>
                               </div>
-                            </section> {% endcomment %}
+                            </section>
 
-                            <section class="quantity d-flex ms-0 m-2">
+                            {% comment %} Quantity button {% endcomment %}
+
+
+                            {% comment %} <section class="quantity d-flex ms-0 m-2">
                               <h6><strong class="fs-4 pt-1">Quantity : </strong></h6>
                               <input type="number" placeholder='QYT' class="rounded" id="qyt" name="qyt" value="1">
-                            </section>
+                            </section> {% endcomment %}
                               <div class="buttons">
                                 <input id="details" type="submit" value="Buy Now" class="btn btn-primary flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">
                                 <input id="details" type="submit" value="Add To Cart" class="btn btn-outline-secondary flex-grow-1 fs-4 ms-3 w-50 p-2 mt-3">

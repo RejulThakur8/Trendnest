@@ -27,5 +27,5 @@ urlpatterns = [path('home/',views.home,name='home'),
                path('shoes%brand/',views.Shoesbanner,name='shoes%brand'),
                path('search/',views.search,name='search'),
                path('profileupdate/',views.updateprofile,name='profileupdate'),
-               path('order/',views.order,name='order')
+               path('Shipping/',views.shipping_address,name='Shipping')
                ] 

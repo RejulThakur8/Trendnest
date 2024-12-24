@@ -119,13 +119,12 @@ SIZE_CHOICE=(
 
 
 
-
 class card(models.Model):
     image = models.ImageField(upload_to='statics/image',default="ab")
     title = models.TextField()
     size = models.CharField(choices=SIZE_CHOICE,max_length=20)
     product_title = models.CharField(max_length=103,default='women') 
-    rating = models.CharField(max_length=31)
+    rating = models.CharField(max_length=31, null=True)
     price = models.IntegerField(null=True)
     brand_name = models.ForeignKey(brand,related_name='brand',on_delete=models.CASCADE)
     pro_name = models.ForeignKey(product,related_name="prod",on_delete=models.CASCADE)
@@ -185,7 +184,7 @@ class Contactus(models.Model):
     
    
 
-class Order(models.Model):
+class Shippingaddress(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     f_name = models.CharField(max_length=50)
     l_name = models.CharField(max_length=50)
