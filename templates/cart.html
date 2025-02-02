@@ -27,7 +27,7 @@
               {% for cd in cartData %}
               <tr>
                   <td class="text-center">
-                  <img src="{% static 'image/' %}{{ cd.Card.image.url }}" class="cart-img rounded" alt="Product Image" name="image">
+                  <img src="{% static 'image/' %}{{ cd.Card.image}}" class="cart-img rounded w-25" alt="Product Image" name="image">
                   </td>
                   <td>{{ cd.Card }}</td>
                   <td>Rs {{ cd.price }}</td>

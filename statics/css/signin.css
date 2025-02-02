@@ -245,9 +245,11 @@ a{
     margin-left: 230px;
 }
 
-.submit {
+#sign-btn {
     margin-top: 40px;
     margin-bottom: 20px;
+    margin-left: 43%;
+    
     background: #d4af7a;
     text-transform: uppercase;
 }

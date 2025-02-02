@@ -6,19 +6,10 @@
     font-size: xx-large;
     cursor: pointer;
 }
-/*.containers{
-    width: 1500px;
-}
-.cart-text{
-    font-size: 2px;
-}
 
-.side-nav{
-    height: 100%;
-    position: sticky;
-    top: 17.5%;
-    width: 190px;
-}*/
+.card-content{
+    width: 307px;
+}
 .cats{
     width: 190px;
 }

@@ -6,7 +6,7 @@
 
 {% if user.is_authenticated %}
 <div class="container bg-info mt-5 rounded mb-5 p-1 w-75">
-    <h4 class="text-center p-2">{{request.user}} Add Your Address</h4>
+    <h4 class="text-center p-2">{{request.user}} Add Your Shipping Address</h4>
     <div class="d-flex justify-content-center p-2">
         <form method="POST" action="/Shipping/" class="row g-3">
             {% csrf_token %}
@@ -46,7 +46,7 @@
                 <label for="inputZip" class="form-label">Zip</label>
                 <input type="text" class="form-control" id="inputZip" name="zip">
             </div>
-            <div class="col-12">
+            <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary">Place To Order</button>
             </div>
         </form>

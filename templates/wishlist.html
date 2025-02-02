@@ -11,7 +11,7 @@
       <h1 class="text-center mb-4">My Wishlist</h1>
 
       {% if error %}
-        <div class="alert alert-danger text-center">
+        <div class="alert alert-danger text-center w-50">
           {{ error }}
         </div>
       {% endif %}
@@ -57,7 +57,7 @@
 
 {% for message in messages %}
 
-<div class="alert alert-{{message.tags}}" role="alert">
+<div class="alert alert-{{message.tags}} m-3 justify-content-center text-center" role="alert">
   {{ message }}
 </div>
 
